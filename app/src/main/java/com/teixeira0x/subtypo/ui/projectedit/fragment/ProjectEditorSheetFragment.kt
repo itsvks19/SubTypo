@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projecteditor.fragment
+package com.teixeira0x.subtypo.ui.projectedit.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,10 +33,10 @@ import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
 import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler
 import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler.Companion.isPermissionsGranted
 import com.teixeira0x.subtypo.ui.fragment.sheet.BaseBottomSheetFragment
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorIntent
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorViewEvent
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorViewState
-import com.teixeira0x.subtypo.ui.projecteditor.viewmodel.ProjectEditorViewModel
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState
+import com.teixeira0x.subtypo.ui.projectedit.viewmodel.ProjectEditorViewModel
 import com.teixeira0x.subtypo.ui.utils.VideoUtils.getVideoThumbnail
 import com.teixeira0x.subtypo.ui.utils.showToastShort
 import com.teixeira0x.subtypo.ui.viewmodel.event.ViewEvent

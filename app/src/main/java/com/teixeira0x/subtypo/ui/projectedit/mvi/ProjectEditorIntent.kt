@@ -13,12 +13,18 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projecteditor.mvi
+package com.teixeira0x.subtypo.ui.projectedit.mvi
 
-import com.teixeira0x.subtypo.domain.model.Project
+import android.net.Uri
 
-sealed class ProjectEditorViewState {
-  data object Loading : ProjectEditorViewState()
+sealed class ProjectEditorIntent {
+  data class Load(val id: Long) : ProjectEditorIntent()
 
-  data class Loaded(val project: Project?) : ProjectEditorViewState()
+  data class UpdateVideoUri(val uri: Uri?) : ProjectEditorIntent()
+
+  data class Create(val name: String, val videoUri: String) :
+    ProjectEditorIntent()
+
+  data class Update(val id: Long, val name: String, val videoUri: String) :
+    ProjectEditorIntent()
 }

@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projecteditor.mvi
+package com.teixeira0x.subtypo.ui.projectedit.mvi
 
 import java.io.File
 

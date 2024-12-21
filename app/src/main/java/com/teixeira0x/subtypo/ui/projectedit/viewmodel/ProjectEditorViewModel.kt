@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projecteditor.viewmodel
+package com.teixeira0x.subtypo.ui.projectedit.viewmodel
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -26,9 +26,9 @@ import com.teixeira0x.subtypo.domain.usecase.project.GetProjectUseCase
 import com.teixeira0x.subtypo.domain.usecase.project.InsertProjectUseCase
 import com.teixeira0x.subtypo.domain.usecase.project.UpdateProjectUseCase
 import com.teixeira0x.subtypo.domain.usecase.subtitle.InsertSubtitleUseCase
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorIntent
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorViewEvent
-import com.teixeira0x.subtypo.ui.projecteditor.mvi.ProjectEditorViewState
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState
 import com.teixeira0x.subtypo.ui.viewmodel.event.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
