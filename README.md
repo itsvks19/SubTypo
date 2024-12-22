@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="SubTypo" width="80" height="80"/>
+  <img src="./fastlane/metadata/android/en-US/images/logo/2.0.0-logo.png" alt="SubTypo" width="80" height="80"/>
 </p>
 <h1 align="center"><b>SubTypo</b></h1>
 <p align="center">Create and edit subtitles simply and quickly!</p>
