@@ -13,26 +13,10 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
-}
+package com.teixeira0x.subtypo.ui.adapter.holder
 
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")
+open class BindingViewHolder<T : ViewBinding>(val binding: T) :
+  RecyclerView.ViewHolder(binding.root)

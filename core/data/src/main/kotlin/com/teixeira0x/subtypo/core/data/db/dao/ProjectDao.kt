@@ -13,26 +13,26 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
+package com.teixeira0x.subtypo.core.data.db.dao
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import com.teixeira0x.subtypo.core.data.db.entity.ProjectEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface ProjectDao {
+  @Query("SELECT * FROM projects") fun getAll(): Flow<List<ProjectEntity>>
+
+  @Query("SELECT * FROM projects WHERE id = :id")
+  fun findById(id: Long): Flow<ProjectEntity?>
+
+  @Insert suspend fun insert(project: ProjectEntity): Long
+
+  @Update suspend fun update(project: ProjectEntity): Int
+
+  @Query("DELETE FROM projects WHERE id = :id")
+  suspend fun remove(id: Long): Int
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")

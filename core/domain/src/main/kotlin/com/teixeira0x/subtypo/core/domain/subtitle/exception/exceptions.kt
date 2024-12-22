@@ -13,26 +13,10 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
-}
+package com.teixeira0x.subtypo.core.domain.subtitle.exception
 
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
+sealed class SubtitleException(message: String, cause: Throwable? = null) :
+  Throwable(message, cause)
 
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")
+class SubtitleParseException(message: String, cause: Throwable? = null) :
+  SubtitleException(message, cause)

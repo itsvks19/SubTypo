@@ -13,26 +13,14 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
-}
+package com.teixeira0x.subtypo.core.data.db.entity
 
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")
+@Entity(tableName = "projects")
+data class ProjectEntity(
+  @PrimaryKey(autoGenerate = true) val id: Long,
+  val name: String,
+  val videoUri: String,
+)

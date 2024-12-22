@@ -13,26 +13,15 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
+package com.teixeira0x.subtypo.core.domain.subtitle.format
+
+import com.teixeira0x.subtypo.core.domain.model.Cue
+import com.teixeira0x.subtypo.core.domain.subtitle.exception.SubtitleParseException
+
+abstract class SubtitleFormat(val name: String, val extension: String) {
+
+  abstract fun toText(cues: List<Cue>): String
+
+  @Throws(SubtitleParseException::class)
+  abstract fun parseText(text: String): List<Cue>
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")

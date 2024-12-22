@@ -13,26 +13,18 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package com.teixeira0x.subtypo.core.domain.usecase.project
+
+import com.teixeira0x.subtypo.core.domain.model.Project
+import com.teixeira0x.subtypo.core.domain.repository.project.ProjectRepository
+import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+
+class GetProjectUseCase
+@Inject
+constructor(private val repository: ProjectRepository) {
+
+  operator fun invoke(id: Long): Flow<Project?> {
+    return repository.getProject(id)
   }
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")

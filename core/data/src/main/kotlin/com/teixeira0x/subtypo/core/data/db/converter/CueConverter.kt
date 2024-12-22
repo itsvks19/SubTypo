@@ -13,26 +13,23 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package com.teixeira0x.subtypo.core.data.db.converter
+
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.teixeira0x.subtypo.core.domain.model.Cue
+
+class CueConverter {
+  private val gson = Gson()
+
+  @TypeConverter
+  fun fromCueList(cues: List<Cue>): String {
+    return gson.toJson(cues)
+  }
+
+  @TypeConverter
+  fun toCueList(cueJson: String): List<Cue> {
+    return gson.fromJson(cueJson, object : TypeToken<List<Cue>>() {}.type)
   }
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")

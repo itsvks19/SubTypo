@@ -13,26 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
+package com.teixeira0x.subtypo.ui.projectedit.mvi
+
+import com.teixeira0x.subtypo.core.domain.model.Project
+
+sealed class ProjectEditorViewState {
+  data object Loading : ProjectEditorViewState()
+
+  data class Loaded(val project: Project?) : ProjectEditorViewState()
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")

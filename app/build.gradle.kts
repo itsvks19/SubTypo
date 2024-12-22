@@ -75,10 +75,7 @@ android {
 
   compileOptions { isCoreLibraryDesugaringEnabled = true }
 
-  kapt {
-    correctErrorTypes = true
-    arguments { arg("room.schemaLocation", "$projectDir/schemas") }
-  }
+  kapt { correctErrorTypes = true }
 
   buildFeatures {
     viewBinding = true
@@ -123,10 +120,15 @@ dependencies {
   implementation(libs.util.utilcode)
   implementation(libs.util.aboutlibraries)
   implementation(libs.util.aboutlibraries.core)
+  implementation(libs.util.slf4j.api)
+  implementation(libs.util.logback.android)
   debugImplementation(libs.util.leakcanary)
 
-  implementation("org.slf4j:slf4j-api:2.0.7")
-  implementation("com.github.tony19:logback-android:3.0.0")
+  implementation(project(":core:data"))
+  implementation(project(":core:domain"))
+  implementation(project(":core:prefs"))
+  implementation(project(":common-ui"))
+  implementation(project(":utils"))
 
   // Test
   testImplementation(libs.tests.junit)

@@ -13,26 +13,18 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package com.teixeira0x.subtypo.core.data.mapper
+
+import com.teixeira0x.subtypo.core.data.db.entity.ProjectEntity
+import com.teixeira0x.subtypo.core.domain.model.Project
+
+object ProjectDataMapper {
+
+  fun ProjectEntity.toModel(): Project {
+    return Project(id = id, name = name, videoUri = videoUri)
+  }
+
+  fun Project.toEntity(): ProjectEntity {
+    return ProjectEntity(id = id, name = name, videoUri = videoUri)
   }
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:prefs")
