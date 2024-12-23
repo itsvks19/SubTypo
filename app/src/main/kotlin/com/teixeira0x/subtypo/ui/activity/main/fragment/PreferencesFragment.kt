@@ -12,10 +12,10 @@ import com.teixeira0x.subtypo.core.prefs.PREF_ABOUT_GITHUB_KEY
 import com.teixeira0x.subtypo.core.prefs.PREF_ABOUT_LIBRARIES_KEY
 import com.teixeira0x.subtypo.core.prefs.PREF_ABOUT_VERSION_KEY
 import com.teixeira0x.subtypo.core.prefs.PREF_CONFIGURE_GENERAL_KEY
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToLibsActivity
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.PreferencesViewModel
+import com.teixeira0x.subtypo.ui.common.R
 
 class PreferencesFragment : PreferenceFragmentCompat() {
 

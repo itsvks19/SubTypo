@@ -6,11 +6,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.BaseActivity
 import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
-import com.teixeira0x.subtypo.ui.databinding.ActivityMainBinding
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditorSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 

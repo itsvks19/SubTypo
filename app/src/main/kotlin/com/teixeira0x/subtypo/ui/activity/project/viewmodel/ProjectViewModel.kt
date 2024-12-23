@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.core.domain.usecase.project.GetProjectUseCase
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

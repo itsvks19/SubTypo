@@ -18,9 +18,9 @@ package com.teixeira0x.subtypo.ui.activity.project.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teixeira0x.subtypo.core.domain.model.Cue
-import com.teixeira0x.subtypo.ui.adapter.holder.BindingViewHolder
-import com.teixeira0x.subtypo.ui.databinding.LayoutCueItemBinding
-import com.teixeira0x.subtypo.ui.utils.ContextUtils.layoutInflater
+import com.teixeira0x.subtypo.ui.common.adapter.holder.BindingViewHolder
+import com.teixeira0x.subtypo.ui.common.databinding.LayoutCueItemBinding
+import com.teixeira0x.subtypo.ui.common.utils.layoutInflater
 import com.teixeira0x.subtypo.utils.TimeUtils.getFormattedTime
 
 typealias CueViewHolder = BindingViewHolder<LayoutCueItemBinding>

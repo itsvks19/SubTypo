@@ -27,7 +27,7 @@ import com.google.android.material.color.MaterialColors
 import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
 import com.teixeira0x.subtypo.ui.activity.BaseActivity
-import com.teixeira0x.subtypo.ui.databinding.ActivityCrashBinding
+import com.teixeira0x.subtypo.ui.common.databinding.ActivityCrashBinding
 import java.util.Date
 
 class CrashActivity : BaseActivity() {

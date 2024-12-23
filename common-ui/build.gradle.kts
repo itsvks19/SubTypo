@@ -21,7 +21,7 @@ plugins {
 }
 
 android {
-  namespace = "${BuildConfig.packageName}.ui"
+  namespace = "${BuildConfig.packageName}.ui.common"
 
   buildFeatures.viewBinding = true
 }
@@ -29,7 +29,6 @@ android {
 dependencies {
   implementation(libs.androidx.appcompat)
   implementation(libs.androidx.annotation)
-  implementation(libs.androidx.core)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.androidx.lifecycle.runtime)

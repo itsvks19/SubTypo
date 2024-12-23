@@ -18,10 +18,10 @@ package com.teixeira0x.subtypo.ui.activity
 import android.content.Context
 import android.content.Intent
 import com.mikepenz.aboutlibraries.LibsBuilder.Companion.BUNDLE_TITLE
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.about.ThemedLibsActivity
 import com.teixeira0x.subtypo.ui.activity.project.ProjectActivity
-import com.teixeira0x.subtypo.utils.Constants
+import com.teixeira0x.subtypo.ui.common.Constants
+import com.teixeira0x.subtypo.ui.common.R
 
 /** Navigator to facilitate navigation between activities. */
 object Navigator {

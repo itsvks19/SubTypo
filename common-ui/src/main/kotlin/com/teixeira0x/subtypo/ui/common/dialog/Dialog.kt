@@ -13,12 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.utils
+package com.teixeira0x.subtypo.ui.common.dialog
 
 import android.content.Context
 import android.content.DialogInterface
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 
 fun Context.showConfirmDialog(
   title: Int,

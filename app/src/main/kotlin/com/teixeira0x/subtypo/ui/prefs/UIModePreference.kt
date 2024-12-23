@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.App
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 
 class UIModePreference : Preference {
 

@@ -3,7 +3,7 @@ package com.teixeira0x.subtypo.ui.activity.main.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 
 class PreferencesViewModel : ViewModel() {
 

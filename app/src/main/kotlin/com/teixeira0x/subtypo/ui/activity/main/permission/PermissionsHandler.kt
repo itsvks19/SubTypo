@@ -28,8 +28,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.teixeira0x.subtypo.ui.R
-import com.teixeira0x.subtypo.ui.utils.permission.checkPermissions
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.utils.permission.checkPermissions
 
 /**
  * Manages the permissions required for the application to function.

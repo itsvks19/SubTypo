@@ -27,13 +27,13 @@ import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.project.adapter.SubtitleListAdapter
 import com.teixeira0x.subtypo.ui.activity.project.fragment.sheet.SubtitleEditorSheetFragment
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.ProjectViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel.SubtitleState
-import com.teixeira0x.subtypo.ui.databinding.FragmentSubtitleListBinding
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentSubtitleListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

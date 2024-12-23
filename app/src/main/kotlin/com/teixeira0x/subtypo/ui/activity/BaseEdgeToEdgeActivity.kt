@@ -26,7 +26,7 @@ abstract class BaseEdgeToEdgeActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     enableEdgeToEdge()
     super.onCreate(savedInstanceState)
-    ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { v, insets ->
+    ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, insets ->
       val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
       onApplySystemBarInsets(systemBars)
       insets

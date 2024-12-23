@@ -25,11 +25,11 @@ import com.teixeira0x.subtypo.core.domain.usecase.project.GetProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.project.InsertProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.project.UpdateProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.InsertSubtitleUseCase
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState
-import com.teixeira0x.subtypo.ui.viewmodel.event.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel

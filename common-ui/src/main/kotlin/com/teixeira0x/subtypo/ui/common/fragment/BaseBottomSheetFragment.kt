@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.fragment.sheet
+package com.teixeira0x.subtypo.ui.common.fragment
 
 import android.app.Dialog
 import android.os.Bundle

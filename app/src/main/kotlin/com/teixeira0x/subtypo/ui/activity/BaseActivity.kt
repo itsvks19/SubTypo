@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.R
 import com.google.android.material.color.MaterialColors
 import com.teixeira0x.subtypo.App
-import com.teixeira0x.subtypo.ui.fragment.dialog.ProgressDialogFragment
+import com.teixeira0x.subtypo.ui.common.fragment.ProgressDialogFragment
 
 /**
  * Base activity for all application activities.

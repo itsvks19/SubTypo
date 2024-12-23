@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.core.domain.model.Project
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
 import com.teixeira0x.subtypo.ui.activity.main.adapter.ProjectListAdapter
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.ProjectsViewModel
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.ProjectsViewModel.ProjectsState.Loaded
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.ProjectsViewModel.ProjectsState.Loading
-import com.teixeira0x.subtypo.ui.databinding.FragmentProjectsBinding
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectsBinding
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditorSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 

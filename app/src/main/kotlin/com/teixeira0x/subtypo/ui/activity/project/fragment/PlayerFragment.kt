@@ -39,10 +39,10 @@ import androidx.media3.common.text.Cue.Builder
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.mediacodec.MediaCodecRenderer.DecoderInitializationException
 import androidx.media3.exoplayer.mediacodec.MediaCodecUtil.DecoderQueryException
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel.VideoEvent
-import com.teixeira0x.subtypo.ui.databinding.FragmentPlayerBinding
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentPlayerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

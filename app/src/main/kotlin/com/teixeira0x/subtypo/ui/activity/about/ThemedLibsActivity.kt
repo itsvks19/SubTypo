@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors.getColor
 import com.mikepenz.aboutlibraries.ui.LibsActivity
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 
 /**
  * Extends the default aboutlibraries libs activity to add support for the

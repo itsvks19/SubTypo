@@ -16,7 +16,7 @@
 package com.teixeira0x.subtypo.core.data
 
 import android.content.Context
-import com.teixeira0x.subtypo.ui.R
+import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.utils.TimeUtils
 
 /** @author Felipe Teixeira */

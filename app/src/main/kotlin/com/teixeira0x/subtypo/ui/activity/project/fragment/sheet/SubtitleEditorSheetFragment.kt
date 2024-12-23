@@ -20,13 +20,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.teixeira0x.subtypo.ui.R
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleEditorViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleEditorViewModel.SubtitleEditorState
-import com.teixeira0x.subtypo.ui.databinding.FragmentSubtitleEditorBinding
-import com.teixeira0x.subtypo.ui.fragment.sheet.BaseBottomSheetFragment
-import com.teixeira0x.subtypo.ui.utils.showConfirmDialog
-import com.teixeira0x.subtypo.utils.Constants
+import com.teixeira0x.subtypo.ui.common.Constants
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentSubtitleEditorBinding
+import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
+import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

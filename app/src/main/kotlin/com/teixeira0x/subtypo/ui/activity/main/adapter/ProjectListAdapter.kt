@@ -21,10 +21,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.teixeira0x.subtypo.core.domain.model.Project
-import com.teixeira0x.subtypo.ui.adapter.holder.BindingViewHolder
-import com.teixeira0x.subtypo.ui.databinding.LayoutProjectItemBinding
-import com.teixeira0x.subtypo.ui.utils.ContextUtils.layoutInflater
-import com.teixeira0x.subtypo.ui.utils.VideoUtils.getVideoThumbnail
+import com.teixeira0x.subtypo.ui.common.adapter.holder.BindingViewHolder
+import com.teixeira0x.subtypo.ui.common.databinding.LayoutProjectItemBinding
+import com.teixeira0x.subtypo.ui.common.utils.VideoUtils.getVideoThumbnail
+import com.teixeira0x.subtypo.ui.common.utils.layoutInflater
 
 typealias ProjectViewHolder = BindingViewHolder<LayoutProjectItemBinding>
 

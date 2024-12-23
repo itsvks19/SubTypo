@@ -27,8 +27,8 @@ import com.teixeira0x.subtypo.core.domain.subtitle.mapper.SubtitleFormatMapper.t
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.GetAllSubtitlesUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.InsertSubtitleUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.RemoveSubtitleUseCase
-import com.teixeira0x.subtypo.ui.R
-import com.teixeira0x.subtypo.ui.viewmodel.event.ViewEvent
+import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
