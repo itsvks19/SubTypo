@@ -13,26 +13,26 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
-  }
+import com.teixeira0x.subtypo.build.BuildConfig
+
+plugins {
+  id("com.android.library")
+  id("kotlin-android")
+  id("kotlin-kapt")
+
+  id("com.google.dagger.hilt.android")
 }
 
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
+android {
+  namespace = "${BuildConfig.packageName}.core.preferences"
+
+  buildFeatures.apply { viewBinding = false }
 }
 
-rootProject.name = "SubTypo"
+dependencies {
+  implementation(libs.androidx.preference)
 
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:preferences")
+  // Google
+  kapt(libs.google.hilt.compiler)
+  implementation(libs.google.hilt)
+}

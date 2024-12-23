@@ -13,26 +13,14 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package com.teixeira0x.subtypo.core.preferences.global
+
+import android.content.SharedPreferences
+
+class AboutPreferences(private val preferences: SharedPreferences) {
+  companion object Keys {
+    const val ABOUT_GITHUB_KEY = "pref_about_github_key"
+    const val ABOUT_LIBRARIES_KEY = "pref_about_libraries_key"
+    const val ABOUT_VERSION_KEY = "pref_about_version_key"
   }
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":common-ui", ":utils")
-
-include(":core:data", ":core:domain", ":core:preferences")

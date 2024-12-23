@@ -4,13 +4,12 @@ import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.PreferenceManager
 import com.blankj.utilcode.util.ThrowableUtils
 import com.google.android.material.color.DynamicColors
-import com.teixeira0x.subtypo.core.prefs.appearanceMaterialYou
-import com.teixeira0x.subtypo.core.prefs.appearanceUIMode
+import com.teixeira0x.subtypo.core.preferences.global.GeneralPreferences
 import com.teixeira0x.subtypo.ui.activity.crash.CrashActivity
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @HiltAndroidApp
@@ -25,11 +24,9 @@ class App : Application() {
       private set
   }
 
-  private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
+  @Inject lateinit var generalPreferences: GeneralPreferences
 
-  val defaultPrefs by lazy {
-    PreferenceManager.getDefaultSharedPreferences(this)
-  }
+  private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
 
   override fun onCreate() {
     uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -37,14 +34,14 @@ class App : Application() {
     instance = this
     super.onCreate()
 
-    if (appearanceMaterialYou) {
+    if (generalPreferences.appearanceMaterialYou) {
       DynamicColors.applyToActivitiesIfAvailable(this)
     }
     updateUIMode()
   }
 
   fun updateUIMode() {
-    AppCompatDelegate.setDefaultNightMode(appearanceUIMode)
+    AppCompatDelegate.setDefaultNightMode(generalPreferences.appearanceUIMode)
   }
 
   fun openUrl(url: String) {

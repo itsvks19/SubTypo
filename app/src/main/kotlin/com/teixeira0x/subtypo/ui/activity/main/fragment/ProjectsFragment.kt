@@ -17,11 +17,12 @@ import com.teixeira0x.subtypo.ui.activity.main.viewmodel.ProjectsViewModel.Proje
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.ProjectsViewModel.ProjectsState.Loading
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectsBinding
+import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditorSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProjectsFragment : Fragment() {
+class ProjectsFragment : Fragment(), Selectable {
 
   private var _binding: FragmentProjectsBinding? = null
   private val binding: FragmentProjectsBinding
@@ -98,5 +99,13 @@ class ProjectsFragment : Fragment() {
       }
       .setNegativeButton(R.string.no, null)
       .show()
+  }
+
+  override fun onSelect() {
+    // Nothing
+  }
+
+  override fun onUnselect() {
+    // Nothing
   }
 }

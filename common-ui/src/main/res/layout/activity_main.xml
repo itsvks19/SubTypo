@@ -36,16 +36,16 @@
       app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
 
       <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/projects"
+        android:id="@+id/fragment_project_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.teixeira0x.subtypo.ui.activity.main.fragment.ProjectsFragment" />
 
       <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/settings"
+        android:id="@+id/fragment_preferences"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.teixeira0x.subtypo.ui.activity.main.fragment.PreferencesFragment" />
+        android:name="com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment" />
 
     </ViewFlipper>
 

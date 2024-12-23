@@ -13,20 +13,11 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-import com.teixeira0x.subtypo.build.BuildConfig
+package com.teixeira0x.subtypo.ui.common.interfaces
 
-plugins {
-  id("com.android.library")
-  id("kotlin-android")
-}
+interface Selectable {
 
-android {
-  namespace = "${BuildConfig.packageName}.core.prefs"
+  fun onSelect()
 
-  buildFeatures.apply { viewBinding = false }
-}
-
-dependencies {
-  implementation(libs.androidx.preference)
-  implementation(project(":utils"))
+  fun onUnselect()
 }
