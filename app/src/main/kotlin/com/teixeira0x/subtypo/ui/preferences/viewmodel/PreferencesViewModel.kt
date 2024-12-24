@@ -30,12 +30,12 @@ class PreferencesViewModel : ViewModel() {
   val currentScreenId: LiveData<Int> = _screenHistory.map { it.last() }
 
   fun navigateToScreen(id: Int) {
-    _screenHistory.value = _screenHistory.value?.plus(id)
+    _screenHistory.value = _screenHistory.value!!.plus(id)
   }
 
   fun navigateBack() {
-    val newHistory = _screenHistory.value?.dropLast(1)
-    if (newHistory != null && newHistory.isNotEmpty()) {
+    val newHistory = _screenHistory.value!!.dropLast(1)
+    if (newHistory.isNotEmpty()) {
       _screenHistory.value = newHistory
     }
   }
