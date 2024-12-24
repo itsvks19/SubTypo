@@ -35,7 +35,7 @@ class PreferencesViewModel : ViewModel() {
 
   fun navigateBack() {
     val newHistory = _screenHistory.value?.dropLast(1)
-    if (!newHistory.isNullOrEmpty()) {
+    if (newHistory != null && newHistory.isNotEmpty()) {
       _screenHistory.value = newHistory
     }
   }
