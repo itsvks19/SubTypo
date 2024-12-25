@@ -47,13 +47,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class ProjectEditorSheetFragment : BaseBottomSheetFragment() {
+class ProjectEditSheetFragment : BaseBottomSheetFragment() {
 
   companion object {
 
     @JvmStatic
-    fun newInstance(projectId: Long = 0): ProjectEditorSheetFragment {
-      return ProjectEditorSheetFragment().also {
+    fun newInstance(projectId: Long = 0): ProjectEditSheetFragment {
+      return ProjectEditSheetFragment().also {
         it.arguments =
           Bundle().apply { putLong(Constants.KEY_PROJECT_ID_ARG, projectId) }
       }
@@ -63,9 +63,7 @@ class ProjectEditorSheetFragment : BaseBottomSheetFragment() {
   private var _binding: FragmentProjectEditorBinding? = null
   private val binding: FragmentProjectEditorBinding
     get() =
-      checkNotNull(_binding) {
-        "ProjectEditorSheetFragment has been destroyed!"
-      }
+      checkNotNull(_binding) { "ProjectEditSheetFragment has been destroyed!" }
 
   private val viewModel by viewModels<ProjectEditorViewModel>()
 

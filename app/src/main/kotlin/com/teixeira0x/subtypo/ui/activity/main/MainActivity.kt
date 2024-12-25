@@ -7,13 +7,13 @@ import androidx.activity.viewModels
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
 import com.teixeira0x.subtypo.ui.activity.BaseActivity
-import com.teixeira0x.subtypo.ui.activity.main.fragment.ProjectsFragment
 import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
 import com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment
-import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditorSheetFragment
+import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
+import com.teixeira0x.subtypo.ui.projectlist.fragment.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,8 +81,7 @@ class MainActivity : BaseActivity() {
 
     binding.fabNewProject.setOnClickListener {
       mainViewModel.currentFragmentIndex = MainViewModel.FRAGMENT_PROJECTS_INDEX
-      ProjectEditorSheetFragment.newInstance()
-        .show(supportFragmentManager, null)
+      ProjectEditSheetFragment.newInstance().show(supportFragmentManager, null)
     }
 
     binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -101,7 +100,7 @@ class MainActivity : BaseActivity() {
     val isProjectsFragment =
       fragmentIndex == MainViewModel.FRAGMENT_PROJECTS_INDEX
     if (isProjectsFragment) {
-      binding.fragmentProjectList.getFragment<ProjectsFragment>().onSelect()
+      binding.fragmentProjectList.getFragment<ProjectListFragment>().onSelect()
       binding.fragmentPreferences
         .getFragment<PreferencesFragment>()
         .onUnselect()
@@ -109,7 +108,9 @@ class MainActivity : BaseActivity() {
       setNavigationSelectedItem(R.id.item_projects)
     } else {
       binding.fragmentPreferences.getFragment<PreferencesFragment>().onSelect()
-      binding.fragmentProjectList.getFragment<ProjectsFragment>().onUnselect()
+      binding.fragmentProjectList
+        .getFragment<ProjectListFragment>()
+        .onUnselect()
       supportActionBar?.setTitle(R.string.settings)
       setNavigationSelectedItem(R.id.item_settings)
     }

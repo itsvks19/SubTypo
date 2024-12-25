@@ -1,83 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginBottom="@dimen/margin_small"
-  android:layout_marginHorizontal="@dimen/margin_small"
+  android:layout_margin="@dimen/margin_small"
   android:foreground="@drawable/ripple_effect">
 
-  <LinearLayout
-    android:layout_width="match_parent"
+  <RelativeLayout
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:paddingHorizontal="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_small">
 
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    <ImageView
+      android:layout_width="160dp"
+      android:layout_height="80dp"
+      android:layout_below="@id/tv_name"
+      android:scaleType="fitCenter"
+      android:visibility="gone"
+      android:background="@android:color/black"
+      android:contentDescription="@string/description_video_thumbnail"
+      android:id="@+id/img_video_thumbnail" />
 
-      <ImageView
-        android:id="@+id/video_thumbnail"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/description_video_thumbnail"
-        android:background="@android:color/black" />
-
-      <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_toEndOf="@id/video_thumbnail"
-        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-        android:ellipsize="end"
-        android:layout_toLeftOf="@id/chevron"
-        android:textSize="16sp"
-        android:singleLine="true" />
-
-      <TextView
-        android:id="@+id/video_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_toEndOf="@id/video_thumbnail"
-        android:layout_below="@id/name"
-        android:layout_toLeftOf="@id/chevron"
-        android:textSize="13sp" />
-
-      <ImageView
-        android:id="@+id/chevron"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:src="@drawable/ic_chevron_down"
-        android:rotation="-90"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
-
-    </RelativeLayout>
-
-    <FrameLayout
-      android:id="@+id/options_container"
-      android:layout_width="match_parent"
+    <TextView
       android:layout_height="wrap_content"
-      android:visibility="gone">
+      android:layout_width="match_parent"
+      android:layout_toEndOf="@id/img_video_thumbnail"
+      android:layout_toStartOf="@id/img_menu"
+      android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+      android:ellipsize="end"
+      android:textSize="16sp"
+      android:maxLines="1"
+      android:layout_marginTop="@dimen/margin_small"
+      android:layout_marginStart="@dimen/margin_small"
+      android:textStyle="bold"
+      android:id="@+id/tv_name" />
 
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_size"
-        android:background="?attr/colorOutlineVariant" />
+    <TextView
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:layout_below="@id/tv_name"
+      android:layout_toEndOf="@id/img_video_thumbnail"
+      android:layout_toStartOf="@id/img_menu"
+      android:textColor="?attr/colorSecondaryVariant"
+      android:textSize="14sp"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:paddingBottom="@dimen/padding_medium"
+      android:layout_marginVertical="@dimen/margin_small"
+      android:layout_marginStart="@dimen/margin_small"
+      android:id="@+id/tv_video_name" />
 
-      <include
-        android:id="@+id/options"
-        layout="@layout/layout_project_item_options" />
+    <ImageView
+      android:layout_height="24dp"
+      android:layout_width="24dp"
+      android:src="@drawable/ic_menu"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="@dimen/margin_small"
+      android:contentDescription="@string/description_project_menu"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:id="@+id/img_menu" />
 
-    </FrameLayout>
-
-  </LinearLayout>
-
+  </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

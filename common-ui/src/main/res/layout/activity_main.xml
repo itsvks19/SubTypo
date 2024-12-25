@@ -39,7 +39,7 @@
         android:id="@+id/fragment_project_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.teixeira0x.subtypo.ui.activity.main.fragment.ProjectsFragment" />
+        android:name="com.teixeira0x.subtypo.ui.projectlist.fragment.ProjectListFragment" />
 
       <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_preferences"
