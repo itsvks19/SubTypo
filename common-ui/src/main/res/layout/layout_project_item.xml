@@ -9,13 +9,11 @@
   <RelativeLayout
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:paddingHorizontal="@dimen/padding_small"
-    android:paddingTop="@dimen/padding_small">
+    android:padding="@dimen/padding_small">
 
     <ImageView
       android:layout_width="160dp"
       android:layout_height="80dp"
-      android:layout_below="@id/tv_name"
       android:scaleType="fitCenter"
       android:visibility="gone"
       android:background="@android:color/black"
