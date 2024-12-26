@@ -29,11 +29,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val dialog = super.onCreateDialog(savedInstanceState)
-    (dialog as? BottomSheetDialog)?.behavior?.apply {
-      peekHeight = BottomSheetBehavior.PEEK_HEIGHT_AUTO
-      state = BottomSheetBehavior.STATE_EXPANDED
+    return BottomSheetDialog(requireContext()).apply {
+      behavior.apply {
+        peekHeight = BottomSheetBehavior.PEEK_HEIGHT_AUTO
+        state = BottomSheetBehavior.STATE_EXPANDED
+      }
     }
-    return dialog
   }
 }

@@ -40,4 +40,6 @@ dependencies {
 
   // Google
   implementation(libs.google.material)
+
+  implementation(project(":core:preferences"))
 }

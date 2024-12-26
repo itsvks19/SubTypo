@@ -28,13 +28,13 @@ import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.UriUtils
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
-import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler
-import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler.Companion.isPermissionsGranted
 import com.teixeira0x.subtypo.ui.common.Constants
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectEditorBinding
 import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
+import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract
+import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract.Companion.isPermissionsGranted
 import com.teixeira0x.subtypo.ui.common.utils.VideoUtils.getVideoThumbnail
 import com.teixeira0x.subtypo.ui.common.utils.showToastShort
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
@@ -72,10 +72,13 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
       uri?.also { viewModel.doIntent(ProjectEditorIntent.UpdateVideoUri(uri)) }
     }
 
+  private lateinit var permissionContract: PermissionResultContract
   private var projectId: Long = 0
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    permissionContract = PermissionResultContract(this)
 
     projectId = arguments?.getLong(Constants.KEY_PROJECT_ID_ARG) ?: 0
   }
@@ -101,7 +104,7 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
 
     binding.cardSelectVideo.setOnClickListener {
       if (!requireContext().isPermissionsGranted()) {
-        PermissionsHandler.showPermissionSettingsDialog(requireContext())
+        permissionContract.requestPermissions()
         return@setOnClickListener
       }
 

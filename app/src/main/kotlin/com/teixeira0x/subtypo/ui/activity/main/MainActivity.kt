@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
 import com.teixeira0x.subtypo.ui.activity.BaseActivity
-import com.teixeira0x.subtypo.ui.activity.main.permission.PermissionsHandler
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
@@ -24,9 +23,6 @@ class MainActivity : BaseActivity() {
     get() = checkNotNull(_binding) { "MainActivity has been destroyed!" }
 
   private val mainViewModel by viewModels<MainViewModel>()
-  private val permissionsHandler by lazy {
-    PermissionsHandler(this, activityResultRegistry)
-  }
 
   private val onBackPressedCallback =
     object : OnBackPressedCallback(false) {
@@ -60,7 +56,6 @@ class MainActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     setSupportActionBar(binding.toolbar)
 
-    lifecycle.addObserver(permissionsHandler)
     onBackPressedDispatcher.addCallback(onBackPressedCallback)
     mainViewModel.currentFragmentIndexData.observe(this) {
       onFragmentChanged(it)
