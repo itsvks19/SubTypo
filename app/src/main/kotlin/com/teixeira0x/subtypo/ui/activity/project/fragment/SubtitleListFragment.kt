@@ -125,10 +125,9 @@ class SubtitleListFragment : Fragment() {
   internal fun onApplySystemBarInsets(insets: Insets) {
     _binding?.apply {
       appBar.updatePadding(top = insets.top)
-      toolbar.updatePaddingRelative(start = insets.left, end = insets.right)
+      toolbar.updatePaddingRelative(end = insets.right)
 
       subtitleListContainer.updatePadding(
-        left = insets.left,
         right = insets.right,
         bottom = insets.bottom,
       )
