@@ -20,7 +20,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.R
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
+import com.teixeira0x.subtypo.core.preferences.PreferencesManager
 import com.teixeira0x.subtypo.ui.common.fragment.ProgressDialogFragment
 
 /**
@@ -44,6 +46,15 @@ abstract class BaseActivity : AppCompatActivity() {
   protected abstract fun bindView(): View
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    if (PreferencesManager.appearanceMaterialYou) {
+      DynamicColors.applyToActivityIfAvailable(this)
+    }
+    configureWindowBarColors()
+    super.onCreate(savedInstanceState)
+    setContentView(bindView())
+  }
+
+  private fun configureWindowBarColors() {
     window?.apply {
       this.statusBarColor = this@BaseActivity.statusBarColor
       this.navigationBarColor = this@BaseActivity.navigationBarColor
@@ -52,8 +63,6 @@ abstract class BaseActivity : AppCompatActivity() {
           this@BaseActivity.navigationBarDividerColor
       }
     }
-    super.onCreate(savedInstanceState)
-    setContentView(bindView())
   }
 
   protected fun showProgressDialog(message: String? = null) {

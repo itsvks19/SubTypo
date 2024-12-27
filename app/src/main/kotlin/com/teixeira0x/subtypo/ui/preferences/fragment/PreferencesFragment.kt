@@ -15,22 +15,25 @@
 
 package com.teixeira0x.subtypo.ui.preferences.fragment
 
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
-import com.teixeira0x.subtypo.core.preferences.global.AboutPreferences.Keys as AboutKeys
-import com.teixeira0x.subtypo.core.preferences.global.GeneralPreferences.Keys as GeneralKeys
+import com.teixeira0x.subtypo.core.preferences.PreferencesManager
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToLibsActivity
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
 import com.teixeira0x.subtypo.ui.common.utils.openUrl
 import com.teixeira0x.subtypo.ui.preferences.viewmodel.PreferencesViewModel
 
-class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
+class PreferencesFragment :
+  PreferenceFragmentCompat(), OnSharedPreferenceChangeListener, Selectable {
 
   private val viewModel by viewModels<PreferencesViewModel>()
 
@@ -45,6 +48,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    PreferencesManager.registerOnSharedPreferenceChangeListener(this)
     requireActivity()
       .onBackPressedDispatcher
       .addCallback(this, onBackPressedCallback)
@@ -52,6 +56,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
 
   override fun onDestroy() {
     super.onDestroy()
+    PreferencesManager.unregisterOnSharedPreferenceChangeListener(this)
     onBackPressedCallback.isEnabled = false
   }
 
@@ -73,28 +78,41 @@ class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
   private fun onScreenIdChange(screenId: Int) {
     when (screenId) {
       R.xml.preferences -> {
-        findPreference<Preference>(GeneralKeys.KEY)
+        findPreference<Preference>(PreferencesManager.KEY_GENERAL)
           ?.setOnPreferenceClickListener { _ ->
             viewModel.navigateToScreen(R.xml.preferences_general)
 
             true
           }
 
-        findPreference<Preference>(AboutKeys.ABOUT_GITHUB_KEY)
+        findPreference<Preference>(PreferencesManager.KEY_ABOUT_GITHUB)
           ?.setOnPreferenceClickListener { _ ->
             requireContext().openUrl(App.APP_REPO_URL)
             true
           }
 
-        findPreference<Preference>(AboutKeys.ABOUT_LIBRARIES_KEY)
+        findPreference<Preference>(PreferencesManager.KEY_ABOUT_LIBRARIES)
           ?.setOnPreferenceClickListener { _ ->
             navigateToLibsActivity(requireContext())
             true
           }
 
-        findPreference<Preference>(AboutKeys.ABOUT_VERSION_KEY)
+        findPreference<Preference>(PreferencesManager.KEY_ABOUT_VERSION)
           ?.setSummary(versionSummary)
       }
+    }
+  }
+
+  override fun onSharedPreferenceChanged(
+    prefs: SharedPreferences,
+    key: String?,
+  ) {
+    when (key) {
+      PreferencesManager.KEY_APPEARANCE_UI_MODE ->
+        AppCompatDelegate.setDefaultNightMode(
+          PreferencesManager.appearanceUIMode
+        )
+      PreferencesManager.KEY_APPEARANCE_MATERIALYOU -> activity?.recreate()
     }
   }
 

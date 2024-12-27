@@ -18,9 +18,6 @@ import com.teixeira0x.subtypo.build.BuildConfig
 plugins {
   id("com.android.library")
   id("kotlin-android")
-  id("kotlin-kapt")
-
-  id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,9 +27,6 @@ android {
 }
 
 dependencies {
+  implementation(libs.androidx.appcompat)
   implementation(libs.androidx.preference)
-
-  // Google
-  kapt(libs.google.hilt.compiler)
-  implementation(libs.google.hilt)
 }

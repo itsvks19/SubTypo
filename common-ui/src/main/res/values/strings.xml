@@ -55,7 +55,7 @@
   <string name="pref_appearance_ui_mode_value_dark">Dark</string>
   <string name="pref_appearance_ui_mode_value_follow">Follow System</string>
   <string name="pref_appearance_materialyou" translatable="false">Material You</string>
-  <string name="pref_appearance_materialyou_summary">The app follows the device\'s theme colors (requires app restart).</string>
+  <string name="pref_appearance_materialyou_summary">The app follows the device\'s theme colors.</string>
   <string name="pref_about_github" translatable="false">GitHub</string>
   <string name="pref_about_github_summary">This app is open source!</string>
   <string name="pref_about_version">Version</string>

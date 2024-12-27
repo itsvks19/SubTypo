@@ -4,11 +4,9 @@ import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import com.blankj.utilcode.util.ThrowableUtils
-import com.google.android.material.color.DynamicColors
-import com.teixeira0x.subtypo.core.preferences.global.GeneralPreferences
+import com.teixeira0x.subtypo.core.preferences.PreferencesManager
 import com.teixeira0x.subtypo.ui.activity.crash.CrashActivity
 import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @HiltAndroidApp
@@ -17,30 +15,20 @@ class App : Application() {
   companion object {
     const val APP_REPO_URL = "https://github.com/teixeira0x/SubTypo"
     const val APP_REPO_OPEN_ISSUE = "$APP_REPO_URL/issues/new"
-
-    @JvmStatic
-    lateinit var instance: App
-      private set
   }
-
-  @Inject lateinit var generalPreferences: GeneralPreferences
 
   private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
 
   override fun onCreate() {
     uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
     Thread.setDefaultUncaughtExceptionHandler(this::uncaughtException)
-    instance = this
+    PreferencesManager.init(this)
     super.onCreate()
-
-    if (generalPreferences.appearanceMaterialYou) {
-      DynamicColors.applyToActivitiesIfAvailable(this)
-    }
     updateUIMode()
   }
 
-  fun updateUIMode() {
-    AppCompatDelegate.setDefaultNightMode(generalPreferences.appearanceUIMode)
+  private fun updateUIMode() {
+    AppCompatDelegate.setDefaultNightMode(PreferencesManager.appearanceUIMode)
   }
 
   private fun uncaughtException(thread: Thread, throwable: Throwable) {

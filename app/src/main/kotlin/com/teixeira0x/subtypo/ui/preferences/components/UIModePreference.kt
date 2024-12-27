@@ -19,7 +19,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.ui.common.R
 
 class UIModePreference : Preference {
@@ -61,10 +60,7 @@ class UIModePreference : Preference {
         editor.putInt(key, w)
       }
       .setNegativeButton(R.string.cancel, null)
-      .setPositiveButton(R.string.save) { _, _ ->
-        editor.apply()
-        App.instance.updateUIMode()
-      }
+      .setPositiveButton(R.string.save) { _, _ -> editor.apply() }
       .show()
   }
 
