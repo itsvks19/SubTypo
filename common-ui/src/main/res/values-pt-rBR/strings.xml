@@ -17,6 +17,13 @@
   <string name="grant">Conceder</string>
   <string name="export">Exportar</string>
   <string name="copy_and_report_issue">Copiar e relatar problema</string>
+  <!-- Common -->
+  <string name="common_failed">Falhado</string>
+  <!-- Content Description -->
+  <string name="description_project_menu">Menu de Opções do Projeto</string>
+  <string name="description_video_thumbnail">Miniatura do vídeo</string>
+  <string name="description_select_video">Selecionar um vídeo</string>
+  <string name="description_remove_video">Remover o vídeo selecionado</string>
   <!-- Messages -->
   <string name="msg_please_wait">Por favor, aguarde.</string>
   <string name="msg_delete_confirmation">Você tem certeza que deseja excluir: %1$s</string>
@@ -40,7 +47,7 @@
   <string name="pref_appearance_ui_mode_value_light">Claro</string>
   <string name="pref_appearance_ui_mode_value_dark">Escuro</string>
   <string name="pref_appearance_ui_mode_value_follow">Seguir o Sistema</string>
-  <string name="pref_appearance_materialyou_summary">O aplicativo segue as cores do tema do dispositivo (requer reinicialização do aplicativo).</string>
+  <string name="pref_appearance_materialyou_summary">O aplicativo segue as cores do tema do dispositivo.</string>
   <string name="pref_about_github_summary">Esse aplicativo é de código aberto!</string>
   <string name="pref_about_version">Versão</string>
   <string name="pref_about_libraries">Bibliotecas</string>
@@ -57,16 +64,22 @@
   <string name="video_player_error_unsupported_audio">A mídia inclui faixas de áudio, mas nenhuma pode ser reproduzida por este dispositivo</string>
   <!-- Project -->
   <string name="projects">Projetos</string>
+  <string name="proj_no_projects">Sem projetos, clique &quot;+&quot; para criar projetos!</string>
+  <string name="proj_deleted">Projeto deletado!</string>
+  <string name="proj_no_video">Nenhum vídeo foi selecionado para este projeto.</string>
+  <string name="proj_editor_edit">Editar Projeto</string>
+  <string name="proj_editor_create">Criar um Projeto Novo</string>
+  <string name="proj_editor_enter_name">Insira o nome do projeto</string>
+  <string name="proj_editor_video_remove">Remover vídeo</string>
+  <string name="proj_editor_video_no_select">Nenhum vídeo foi selecionado</string>
+  <string name="proj_editor_video_tap_to_select">Toque para selecionar um vídeo (opcional)</string>
+  <string name="proj_editor_error_name_required">O nome do projeto é obrigatório</string>
+  <string name="proj_editor_success_create">Projeto criado com sucesso</string>
+  <string name="proj_editor_success_update">Projeto atualizado com sucesso</string>
   <string name="proj_initializing">Inicializando projeto.</string>
   <string name="proj_saving">Salvando projeto.</string>
   <string name="proj_close">Fechar Projeto</string>
-  <string name="proj_no_projects">Sem projetos, clique \"+\" para criar projetos!</string>
-  <string name="proj_new">Novo Projeto</string>
-  <string name="proj_edit">Editar Projeto</string>
-  <string name="proj_enter_name">Insira o nome</string>
-  <string name="proj_video_choose_click">Clique para escolher um vídeo (opcional)</string>
   <string name="proj_current_video_position">Posição atual do vídeo: %1$s</string>
-  <string name="proj_error_enter_name">Por favor, insira um nome</string>
   <string name="proj_error_unable_to_load">Não foi possível carregar este projeto.</string>
   <string name="proj_export_subtitle">Exportar Legenda</string>
   <string name="proj_export_subtitle_saved">Exportado com sucesso</string>
@@ -82,11 +95,11 @@
   <string name="subtitle_edit">Editar Legenda</string>
   <string name="subtitle_remove_msg">Você tem certeza que deseja deletar esta legenda?</string>
   <string name="subtitle_list">Legendas</string>
-  <string name="subtitle_list_empty">Sem legendas, clique \"+\" para adicionar.</string>
+  <string name="subtitle_list_empty">Sem legendas, clique &quot;+&quot; para adicionar.</string>
   <string name="subtitle_enter_name">Digite o nome</string>
   <string name="subtitle_enter_format">Digite o formato</string>
   <string name="subtitle_error_remove">Não foi possível excluir esta legenda</string>
-  <string name="subtitle_cue_list_empty">Clique em \"+\" abaixo para adicionar um novo texto.</string>
+  <string name="subtitle_cue_list_empty">Clique no &quot;+&quot; abaixo para adicionar um novo texto.</string>
   <string name="subtitle_cue_add">Adicionar texto</string>
   <string name="subtitle_cue_edit">Editar Texto</string>
   <string name="subtitle_cue_remove_msg">Tem certeza de que deseja remover este texto?</string>

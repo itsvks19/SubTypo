@@ -25,7 +25,7 @@
   <!-- Content Description -->
   <string name="description_project_menu">Project Options Menu</string>
   <string name="description_video_thumbnail">Thumbnail of the video</string>
-  <string name="description_select_video">Selected a video</string>
+  <string name="description_select_video">Select a video</string>
   <string name="description_remove_video">Remove the selected video</string>
 
   <!-- Messages -->
