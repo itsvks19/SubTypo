@@ -1,40 +1,60 @@
+/*
+ * This file is part of SubTypo.
+ *
+ * SubTypo is free software: you can redistribute it and/or modify it under the terms of
+ * the GNU General Public License as published by the Free Software Foundation, either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * SubTypo is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with SubTypo.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.teixeira0x.subtypo.ui.activity.main
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.core.graphics.Insets
+import androidx.core.view.updateMarginsRelative
+import androidx.core.view.updatePadding
+import androidx.core.view.updatePaddingRelative
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
+import com.teixeira0x.subtypo.ui.activity.main.model.NavigationItem
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
 import com.teixeira0x.subtypo.ui.common.R
-import com.teixeira0x.subtypo.ui.common.activity.BaseActivity
+import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
+import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
+import com.teixeira0x.subtypo.ui.common.utils.dpToPx
 import com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
 import com.teixeira0x.subtypo.ui.projectlist.fragment.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseEdgeToEdgeActivity() {
 
   private var _binding: ActivityMainBinding? = null
   private val binding: ActivityMainBinding
     get() = checkNotNull(_binding) { "MainActivity has been destroyed!" }
 
-  private val mainViewModel by viewModels<MainViewModel>()
+  private val viewModel by viewModels<MainViewModel>()
 
   private val onBackPressedCallback =
     object : OnBackPressedCallback(false) {
-      override fun handleOnBackPressed() {
-        if (
-          mainViewModel.currentFragmentIndex !=
-            MainViewModel.FRAGMENT_PROJECTS_INDEX
-        ) {
-          mainViewModel.currentFragmentIndex =
-            MainViewModel.FRAGMENT_PROJECTS_INDEX
-        }
-      }
+      override fun handleOnBackPressed() =
+        viewModel.navigateTo(R.id.item_projects)
     }
 
   override val statusBarColor: Int
@@ -52,14 +72,33 @@ class MainActivity : BaseActivity() {
       .root
   }
 
+  override fun onApplySystemBarInsets(insets: Insets) {
+    _binding?.apply {
+      appBar.updatePadding(top = insets.top)
+      toolbar.updatePaddingRelative(start = insets.left, end = insets.right)
+
+      fragmentsContainer.updatePadding(left = insets.left, right = insets.right)
+      bottomNavigation.updatePadding(
+        left = insets.left,
+        right = insets.right,
+        bottom = insets.bottom,
+      )
+
+      (fabNewProject.layoutParams as ViewGroup.MarginLayoutParams)
+        .updateMarginsRelative(
+          start = insets.left,
+          end = insets.right,
+          bottom = 45.dpToPx() + insets.bottom,
+        )
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setSupportActionBar(binding.toolbar)
+    observeViewModel()
 
     onBackPressedDispatcher.addCallback(onBackPressedCallback)
-    mainViewModel.currentFragmentIndexData.observe(this) {
-      onFragmentChanged(it)
-    }
     configureListeners()
   }
 
@@ -75,45 +114,60 @@ class MainActivity : BaseActivity() {
     }
 
     binding.fabNewProject.setOnClickListener {
-      mainViewModel.currentFragmentIndex = MainViewModel.FRAGMENT_PROJECTS_INDEX
       ProjectEditSheetFragment.newInstance().show(supportFragmentManager, null)
+      viewModel.navigateTo(R.id.item_projects)
     }
 
     binding.bottomNavigation.setOnItemSelectedListener { item ->
-      mainViewModel.currentFragmentIndex =
-        when (item.itemId) {
-          R.id.item_projects -> MainViewModel.FRAGMENT_PROJECTS_INDEX
-          R.id.item_settings -> MainViewModel.FRAGMENT_SETTINGS_INDEX
-          else ->
-            throw IllegalArgumentException("Invalid item id: '${item.itemId}'")
-        }
+      viewModel.navigateTo(item.itemId)
+
       true
     }
   }
 
-  private fun onFragmentChanged(fragmentIndex: Int) {
-    val isProjectsFragment =
-      fragmentIndex == MainViewModel.FRAGMENT_PROJECTS_INDEX
-    if (isProjectsFragment) {
-      binding.fragmentProjectList.getFragment<ProjectListFragment>().onSelect()
-      binding.fragmentPreferences
-        .getFragment<PreferencesFragment>()
-        .onUnselect()
-      supportActionBar?.setTitle(R.string.projects)
-      setNavigationSelectedItem(R.id.item_projects)
-    } else {
-      binding.fragmentPreferences.getFragment<PreferencesFragment>().onSelect()
-      binding.fragmentProjectList
-        .getFragment<ProjectListFragment>()
-        .onUnselect()
-      supportActionBar?.setTitle(R.string.settings)
-      setNavigationSelectedItem(R.id.item_settings)
-    }
-    binding.fragmentsContainer.displayedChild = fragmentIndex
+  private fun observeViewModel() {
+    viewModel.currentSelectedItem
+      .flowWithLifecycle(lifecycle)
+      .onEach(this::onSelectedNavigationItemChange)
+      .launchIn(lifecycleScope)
+  }
 
-    supportActionBar?.setDisplayHomeAsUpEnabled(!isProjectsFragment)
-    supportActionBar?.setHomeButtonEnabled(!isProjectsFragment)
-    onBackPressedCallback.isEnabled = !isProjectsFragment
+  private fun onSelectedNavigationItemChange(item: NavigationItem?) {
+    if (item == null) {
+      return
+    }
+    supportActionBar?.setTitle(item.title)
+
+    setNavigationSelectedItem(item.navigationItemId)
+    updateSelectedFragment(item.fragmentIndex)
+  }
+
+  private fun updateSelectedFragment(index: Int) {
+    binding.fragmentsContainer.displayedChild = index
+
+    val fragments =
+      arrayOf(
+        binding.fragmentProjectList.getFragment<ProjectListFragment>(),
+        binding.fragmentPreferences.getFragment<PreferencesFragment>(),
+      )
+
+    fragments.forEachIndexed { idx, fragment ->
+      (fragment as? Selectable)?.let { selectableFragment ->
+        if (idx == index) {
+          selectableFragment.onSelect()
+        } else {
+          selectableFragment.onUnselect()
+        }
+      }
+    }
+
+    setBackEnabled(index > 0)
+  }
+
+  private fun setBackEnabled(enabled: Boolean) {
+    onBackPressedCallback.isEnabled = enabled
+    supportActionBar?.setDisplayHomeAsUpEnabled(enabled)
+    supportActionBar?.setHomeButtonEnabled(enabled)
   }
 
   private fun setNavigationSelectedItem(id: Int) {

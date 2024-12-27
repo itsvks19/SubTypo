@@ -5,7 +5,6 @@
   <solid
     android:color="?attr/colorOnSurfaceInverse" />
 
-  <!-- Substitua com sua cor de fundo desejada -->
   <corners
     android:topLeftRadius="8dp"
     android:topRightRadius="8dp" />
