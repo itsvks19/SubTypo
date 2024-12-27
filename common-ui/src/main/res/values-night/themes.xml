@@ -51,6 +51,7 @@
     <item name="android:windowLightStatusBar">false</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     <item name="android:fontFamily">@font/suse_regular</item>
+    <item name="bottomSheetDialogTheme">@style/ThemeOverlay.SubTypo.BottomSheetDialog</item>
     <item name="switchPreferenceCompatStyle">@style/AppTheme.SwitchPreference</item>
   </style>
 
