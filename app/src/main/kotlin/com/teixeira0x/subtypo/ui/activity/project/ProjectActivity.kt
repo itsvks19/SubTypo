@@ -32,7 +32,6 @@ import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.core.storage.FileManager
-import com.teixeira0x.subtypo.ui.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.activity.project.adapter.CueListAdapter
 import com.teixeira0x.subtypo.ui.activity.project.fragment.SubtitleListFragment
 import com.teixeira0x.subtypo.ui.activity.project.fragment.sheet.CueEditorSheetFragment
@@ -43,6 +42,7 @@ import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel.Su
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel
 import com.teixeira0x.subtypo.ui.common.Constants
 import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityProjectBinding
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.common.utils.showToastShort

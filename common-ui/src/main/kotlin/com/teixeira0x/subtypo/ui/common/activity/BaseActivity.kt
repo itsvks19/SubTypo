@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.activity
+package com.teixeira0x.subtypo.ui.common.activity
 
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +21,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.R
 import com.google.android.material.color.MaterialColors
-import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.ui.common.fragment.ProgressDialogFragment
 
 /**
@@ -41,9 +40,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
   protected open val navigationBarDividerColor: Int
     get() = MaterialColors.getColor(this, R.attr.colorOutlineVariant, 0)
-
-  protected val app: App
-    get() = App.instance
 
   protected abstract fun bindView(): View
 

@@ -26,8 +26,9 @@ import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
 import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
-import com.teixeira0x.subtypo.ui.activity.BaseActivity
+import com.teixeira0x.subtypo.ui.common.activity.BaseActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityCrashBinding
+import com.teixeira0x.subtypo.ui.common.utils.openUrl
 import java.util.Date
 
 class CrashActivity : BaseActivity() {
@@ -110,7 +111,7 @@ class CrashActivity : BaseActivity() {
 
       btnCopyAndReport.setOnClickListener {
         ClipboardUtils.copyText(tvError.text.toString())
-        app.openUrl(App.APP_REPO_OPEN_ISSUE)
+        openUrl(App.APP_REPO_OPEN_ISSUE)
       }
       btnCopy.setOnClickListener {
         ClipboardUtils.copyText(tvError.text.toString())

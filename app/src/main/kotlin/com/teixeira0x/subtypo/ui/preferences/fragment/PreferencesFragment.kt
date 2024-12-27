@@ -27,6 +27,7 @@ import com.teixeira0x.subtypo.core.preferences.global.GeneralPreferences.Keys as
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToLibsActivity
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
+import com.teixeira0x.subtypo.ui.common.utils.openUrl
 import com.teixeira0x.subtypo.ui.preferences.viewmodel.PreferencesViewModel
 
 class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
@@ -81,7 +82,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), Selectable {
 
         findPreference<Preference>(AboutKeys.ABOUT_GITHUB_KEY)
           ?.setOnPreferenceClickListener { _ ->
-            App.instance.openUrl(App.APP_REPO_URL)
+            requireContext().openUrl(App.APP_REPO_URL)
             true
           }
 

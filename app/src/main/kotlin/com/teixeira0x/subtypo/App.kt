@@ -2,7 +2,6 @@ package com.teixeira0x.subtypo
 
 import android.app.Application
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
 import com.blankj.utilcode.util.ThrowableUtils
 import com.google.android.material.color.DynamicColors
@@ -42,16 +41,6 @@ class App : Application() {
 
   fun updateUIMode() {
     AppCompatDelegate.setDefaultNightMode(generalPreferences.appearanceUIMode)
-  }
-
-  fun openUrl(url: String) {
-    startActivity(
-      Intent().apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        action = Intent.ACTION_VIEW
-        data = Uri.parse(url)
-      }
-    )
   }
 
   private fun uncaughtException(thread: Thread, throwable: Throwable) {

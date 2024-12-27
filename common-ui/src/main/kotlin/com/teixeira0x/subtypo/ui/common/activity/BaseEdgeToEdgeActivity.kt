@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.activity
+package com.teixeira0x.subtypo.ui.common.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
