@@ -17,12 +17,18 @@ package com.teixeira0x.subtypo.build
 
 @SuppressWarnings("unused")
 object VersionUtils {
-  const val versionCode = 4
-  const val version = "2.0.0"
+  const val versionCode = 5
+  const val version = "2.0.1"
 
   val versionName by lazy {
-    if (CI.isCiBuild && CI.branchName != "main") {
-      "$version-${CI.commitHash}-${CI.branchName}"
-    } else version
+    val branchName = CI.branchName
+    val isCi = CI.isCiBuild
+
+    when {
+      isCi && branchName == "main" -> "$version-release"
+      isCi && branchName == "beta" -> "$version-beta"
+      isCi -> "$version-${CI.commitHash}-${CI.branchName}"
+      else -> "$version-local"
+    }
   }
 }
