@@ -23,6 +23,7 @@
   <string name="common_failed">Failed</string>
 
   <!-- Content Description -->
+  <string name="description_create_project">Create a new project</string>
   <string name="description_project_menu">Project Options Menu</string>
   <string name="description_video_thumbnail">Thumbnail of the video</string>
   <string name="description_select_video">Select a video</string>

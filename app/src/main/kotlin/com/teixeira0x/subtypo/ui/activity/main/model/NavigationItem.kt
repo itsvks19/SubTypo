@@ -15,7 +15,7 @@
 
 package com.teixeira0x.subtypo.ui.activity.main.model
 
-class NavigationItem(
+data class NavigationItem(
   val navigationItemId: Int,
   val fragmentIndex: Int,
   val title: Int,

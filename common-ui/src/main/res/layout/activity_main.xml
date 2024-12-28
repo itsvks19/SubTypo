@@ -55,15 +55,6 @@
       app:menu="@menu/main_bottom_navigation"
       app:elevation="1dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/fab_new_project"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginBottom="45dp"
-      android:src="@drawable/ic_plus" />
-
   </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,11 +17,9 @@ package com.teixeira0x.subtypo.ui.activity.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.graphics.Insets
-import androidx.core.view.updateMarginsRelative
 import androidx.core.view.updatePadding
 import androidx.core.view.updatePaddingRelative
 import androidx.lifecycle.flowWithLifecycle
@@ -34,9 +32,7 @@ import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
 import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
-import com.teixeira0x.subtypo.ui.common.utils.dpToPx
 import com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment
-import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
 import com.teixeira0x.subtypo.ui.projectlist.fragment.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -83,13 +79,6 @@ class MainActivity : BaseEdgeToEdgeActivity() {
         right = insets.right,
         bottom = insets.bottom,
       )
-
-      (fabNewProject.layoutParams as ViewGroup.MarginLayoutParams)
-        .updateMarginsRelative(
-          start = insets.left,
-          end = insets.right,
-          bottom = 45.dpToPx() + insets.bottom,
-        )
     }
   }
 
@@ -111,11 +100,6 @@ class MainActivity : BaseEdgeToEdgeActivity() {
   private fun configureListeners() {
     binding.toolbar.setNavigationOnClickListener {
       onBackPressedDispatcher.onBackPressed()
-    }
-
-    binding.fabNewProject.setOnClickListener {
-      ProjectEditSheetFragment.newInstance().show(supportFragmentManager, null)
-      viewModel.navigateTo(R.id.item_projects)
     }
 
     binding.bottomNavigation.setOnItemSelectedListener { item ->

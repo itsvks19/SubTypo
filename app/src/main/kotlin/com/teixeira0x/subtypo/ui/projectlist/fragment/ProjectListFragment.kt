@@ -65,13 +65,10 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
       .root
   }
 
-  override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     observeViewModel()
+    configureUI()
 
-    binding.apply {
-      rvProjects.layoutManager = LinearLayoutManager(requireContext())
-      rvProjects.adapter = projectsAdapter
-    }
     viewModel.doIntent(ProjectListIntent.Refresh)
   }
 
@@ -98,10 +95,21 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
       .launchIn(viewLifecycleOwner.lifecycleScope)
   }
 
-  private fun onChangeLoadingState(isLoading: Boolean, isEmptyList: Boolean) {
-    binding.noProjects.isVisible = !isLoading && isEmptyList
-    binding.rvProjects.isVisible = !isLoading
-    binding.progress.isVisible = isLoading
+  private fun onChangeLoadingState(isLoading: Boolean, isEmptyList: Boolean) =
+    binding.apply {
+      if (isLoading) fabCreateProject.hide() else fabCreateProject.show()
+      noProjects.isVisible = !isLoading && isEmptyList
+      rvProjects.isVisible = !isLoading
+      progress.isVisible = isLoading
+    }
+
+  private fun configureUI() {
+    binding.apply {
+      fabCreateProject.setOnClickListener { showEditProjectSheet() }
+
+      rvProjects.layoutManager = LinearLayoutManager(requireContext())
+      rvProjects.adapter = projectsAdapter
+    }
   }
 
   override fun onProjectClickListener(view: View, project: Project) {
@@ -130,10 +138,7 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
 
       setOnMenuItemClickListener { item ->
         when (item.itemId) {
-          0 -> {
-            ProjectEditSheetFragment.newInstance(project.id)
-              .show(childFragmentManager, null)
-          }
+          0 -> showEditProjectSheet(project.id)
           1 -> {
             requireContext().showConfirmDialog(
               title = getString(R.string.delete),
@@ -148,6 +153,11 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
       }
       show()
     }
+  }
+
+  private fun showEditProjectSheet(projectId: Long = 0) {
+    ProjectEditSheetFragment.newInstance(projectId)
+      .show(childFragmentManager, null)
   }
 
   override fun onSelect() {
