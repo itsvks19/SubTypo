@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/subtitle_enter_name"
             android:layout_weight="1.0"
-            style="@style/AppTheme.TextInputLayout">
+            style="@style/Widget.SubTypo.TextInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tie_name"

@@ -1,13 +1,52 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+  <style name="MaterialAlertDialog.SubTypo" parent="MaterialAlertDialog.Material3">
+    <item name="android:windowAnimationStyle">@style/AnimationSubTypoDialog</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.MediumComponent</item>
+    <item name="shapeAppearanceOverlay">@null</item>
+  </style>
+
   <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
     <item name="backgroundTint">?attr/colorSurface</item>
+    <item name="android:windowAnimationStyle">@style/AnimationSubTypoDialog</item>
     <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.LargeComponent</item>
   </style>
-  
+
+  <style name="ShapeAppearance.SubTypo.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">12dp</item>
+  </style>
+
   <style name="ShapeAppearance.SubTypo.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">24dp</item>
   </style>
 
+  <style name="Widget.SubTypo.PositiveButton.Dialog" parent="Widget.Material3.Button">
+  </style>
+
+  <style name="Widget.SubTypo.NegativeButton.Dialog" parent="Widget.Material3.Button.OutlinedButton">
+    <item name="android:layout_marginEnd">8dp</item>
+  </style>
+  
+  <style name="Widget.SubTypo.TextInputLayout.FilledBox" parent="Widget.Material3.TextInputLayout.FilledBox">
+    <item name="hintAnimationEnabled">true</item>
+    <item name="boxCornerRadiusTopStart">10dp</item>
+    <item name="boxCornerRadiusTopEnd">10dp</item>
+  </style>
+  
+  <style name="Widget.SubTypo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+    <item name="hintAnimationEnabled">true</item>
+    <item name="boxCornerRadiusTopStart">10dp</item>
+    <item name="boxCornerRadiusTopEnd">10dp</item>
+    <item name="boxCornerRadiusBottomStart">10dp</item>
+    <item name="boxCornerRadiusBottomEnd">10dp</item>
+  </style>
+
+  <style name="Widget.SubTypo.TextInputLayout.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu" />
+
+  <style name="AnimationSubTypoDialog">
+    <item name="android:windowEnterAnimation">@anim/slide_in</item>
+    <item name="android:windowExitAnimation">@anim/slide_out</item>
+  </style>
 </resources>

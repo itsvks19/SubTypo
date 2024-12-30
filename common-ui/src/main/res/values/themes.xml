@@ -51,6 +51,7 @@
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     <item name="android:fontFamily">@font/suse_regular</item>
+    <item name="materialAlertDialogTheme">@style/ThemeOverlay.SubTypo.MaterialAlertDialog</item>
     <item name="bottomSheetDialogTheme">@style/ThemeOverlay.SubTypo.BottomSheetDialog</item>
     <item name="switchPreferenceCompatStyle">@style/AppTheme.SwitchPreference</item>
     <item name="windowActionModeOverlay">true</item>
@@ -62,26 +63,16 @@
     <item name="android:widgetLayout">@layout/layout_material_switch_style</item>
   </style>
 
+  <style name="ThemeOverlay.SubTypo.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+    <item name="alertDialogStyle">@style/MaterialAlertDialog.SubTypo</item>
+    <item name="buttonBarPositiveButtonStyle">@style/Widget.SubTypo.PositiveButton.Dialog</item>
+    <item name="buttonBarNegativeButtonStyle">@style/Widget.SubTypo.NegativeButton.Dialog</item>
+  </style>
+
   <style name="ThemeOverlay.SubTypo.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
     <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
   </style>
-
-  <style name="AppTheme.TextInputLayout.FilledBox" parent="Widget.Material3.TextInputLayout.FilledBox">
-    <item name="hintAnimationEnabled">true</item>
-    <item name="boxCornerRadiusTopStart">10dp</item>
-    <item name="boxCornerRadiusTopEnd">10dp</item>
-  </style>
-  
-  <style name="AppTheme.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-    <item name="hintAnimationEnabled">true</item>
-    <item name="boxCornerRadiusTopStart">10dp</item>
-    <item name="boxCornerRadiusTopEnd">10dp</item>
-    <item name="boxCornerRadiusBottomStart">10dp</item>
-    <item name="boxCornerRadiusBottomEnd">10dp</item>
-  </style>
-
-  <style name="AppTheme.TextInputLayout.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu" />
 
   <style name="ControllerImageStyle">
     <item name="android:layout_width">35dp</item>
