@@ -63,6 +63,7 @@
   </style>
 
   <style name="ThemeOverlay.SubTypo.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
     <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
   </style>
 

@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
+    <item name="backgroundTint">?attr/colorSurface</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.LargeComponent</item>
+  </style>
+  
+  <style name="ShapeAppearance.SubTypo.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">24dp</item>
+  </style>
+
+</resources>
