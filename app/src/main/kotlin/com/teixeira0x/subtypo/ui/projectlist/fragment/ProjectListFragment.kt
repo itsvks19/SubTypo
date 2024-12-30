@@ -16,7 +16,10 @@
 package com.teixeira0x.subtypo.ui.projectlist.fragment
 
 import android.os.Bundle
+import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuBuilder
@@ -26,6 +29,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.selection.DefaultSelectionTracker
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
@@ -33,11 +40,13 @@ import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectListBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
 import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
+import com.teixeira0x.subtypo.ui.common.utils.showToastShort
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
 import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectClickListener
 import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectListAdapter
 import com.teixeira0x.subtypo.ui.projectlist.mvi.ProjectListIntent
 import com.teixeira0x.subtypo.ui.projectlist.mvi.ProjectListViewState
+import com.teixeira0x.subtypo.ui.projectlist.utils.ProjectKeyProvider
 import com.teixeira0x.subtypo.ui.projectlist.viewmodel.ProjectListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -53,7 +62,9 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
   private val viewModel by
     viewModels<ProjectListViewModel>(ownerProducer = { requireActivity() })
 
-  private val projectsAdapter by lazy { ProjectListAdapter(this) }
+  private var selectionActionMode: SelectionActionMode? = null
+  private lateinit var selectionTracker: SelectionTracker<Long>
+  private lateinit var projectsAdapter: ProjectListAdapter
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -108,8 +119,32 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
       fabCreateProject.setOnClickListener { showEditProjectSheet() }
 
       rvProjects.layoutManager = LinearLayoutManager(requireContext())
-      rvProjects.adapter = projectsAdapter
+      rvProjects.adapter =
+        ProjectListAdapter(
+            DefaultSelectionTracker<Long>(
+                "DefaultSelectionTracker",
+                ProjectKeyProvider(binding.rvProjects),
+                SelectionPredicates.createSelectAnything(),
+                StorageStrategy.createLongStorage(),
+              )
+              .also { selectionTracker = it },
+            this@ProjectListFragment,
+          )
+          .also { projectsAdapter = it }
     }
+
+    selectionTracker.addObserver(
+      object : SelectionTracker.SelectionObserver<Long>() {
+        override fun onSelectionCleared() {
+          val selection = projectsAdapter.selection(selectionTracker.selection)
+        }
+
+        override fun onSelectionChanged() {
+          val selection = projectsAdapter.selection(selectionTracker.selection)
+          requireContext().showToastShort(selection.toString())
+        }
+      }
+    )
   }
 
   override fun onProjectClickListener(view: View, project: Project) {
@@ -166,5 +201,31 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
 
   override fun onUnselect() {
     // Nothing
+  }
+
+  inner class SelectionActionMode : ActionMode.Callback {
+
+    override fun onCreateActionMode(
+      actionMode: ActionMode,
+      menu: Menu,
+    ): Boolean {
+      return true
+    }
+
+    override fun onPrepareActionMode(
+      actionMode: ActionMode,
+      menu: Menu,
+    ): Boolean {
+      return true
+    }
+
+    override fun onActionItemClicked(
+      actionMode: ActionMode,
+      item: MenuItem,
+    ): Boolean {
+      return true
+    }
+
+    override fun onDestroyActionMode(actionMode: ActionMode) {}
   }
 }

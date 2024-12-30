@@ -102,6 +102,7 @@ dependencies {
   implementation(libs.androidx.exoplayer)
   implementation(libs.androidx.exoplayer.dash)
   implementation(libs.androidx.exoplayer.ui)
+  implementation(libs.androidx.recyclerview.selection)
   kapt(libs.androidx.room.compiler)
   implementation(libs.androidx.room.runtime)
   implementation(libs.androidx.room.ktx)
