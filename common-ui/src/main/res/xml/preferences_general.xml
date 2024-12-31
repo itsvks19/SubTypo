@@ -16,9 +16,9 @@
     <SwitchPreferenceCompat
       app:defaultValue="true"
       app:icon="@drawable/ic_palette"
-      app:key="pref_appearance_materialyou_key"
-      app:title="@string/pref_appearance_materialyou"
-      app:summary="@string/pref_appearance_materialyou_summary" />
+      app:key="pref_appearance_dynamiccolors_key"
+      app:title="@string/pref_appearance_dynamiccolors"
+      app:summary="@string/pref_appearance_dynamiccolors_summary" />
 
   </PreferenceCategory>
 

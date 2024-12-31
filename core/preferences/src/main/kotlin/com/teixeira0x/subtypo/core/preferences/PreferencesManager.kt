@@ -19,6 +19,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 /**
@@ -32,7 +33,7 @@ object PreferencesManager {
   // General
   const val KEY_GENERAL = "pref_configure_general_key"
   const val KEY_APPEARANCE_UI_MODE = "pref_appearance_ui_mode_key"
-  const val KEY_APPEARANCE_MATERIALYOU = "pref_appearance_materialyou_key"
+  const val KEY_APPEARANCE_DYNAMICCOLORS = "pref_appearance_dynamiccolors_key"
 
   // About
   const val KEY_ABOUT_GITHUB = "pref_about_github_key"
@@ -66,6 +67,8 @@ object PreferencesManager {
         else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       }
 
-  val appearanceMaterialYou: Boolean
-    get() = preferences.getBoolean(KEY_APPEARANCE_MATERIALYOU, true)
+  var appearanceDynamicColors: Boolean
+    get() = preferences.getBoolean(KEY_APPEARANCE_DYNAMICCOLORS, true)
+    set(value) =
+      preferences.edit { putBoolean(KEY_APPEARANCE_DYNAMICCOLORS, value) }
 }

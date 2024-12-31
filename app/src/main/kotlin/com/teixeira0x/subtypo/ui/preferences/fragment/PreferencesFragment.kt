@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.material.color.DynamicColors
 import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
 import com.teixeira0x.subtypo.core.preferences.PreferencesManager
@@ -43,8 +44,7 @@ class PreferencesFragment :
     }
 
   private val versionSummary: String
-    get() =
-      "${BuildConfig.VERSION_NAME} (${BuildConfig.BUILD_TYPE.uppercase()})"
+    get() = "${BuildConfig.VERSION_NAME} (${BuildConfig.BUILD_TYPE})"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -100,6 +100,20 @@ class PreferencesFragment :
         findPreference<Preference>(PreferencesManager.KEY_ABOUT_VERSION)
           ?.setSummary(versionSummary)
       }
+      R.xml.preferences_general -> {
+        findPreference<Preference>(
+            PreferencesManager.KEY_APPEARANCE_DYNAMICCOLORS
+          )
+          ?.apply {
+            if (!DynamicColors.isDynamicColorAvailable()) {
+              if (PreferencesManager.appearanceDynamicColors) {
+                PreferencesManager.appearanceDynamicColors = false
+              }
+
+              isEnabled = false
+            }
+          }
+      }
     }
   }
 
@@ -112,7 +126,7 @@ class PreferencesFragment :
         AppCompatDelegate.setDefaultNightMode(
           PreferencesManager.appearanceUIMode
         )
-      PreferencesManager.KEY_APPEARANCE_MATERIALYOU -> activity?.recreate()
+      PreferencesManager.KEY_APPEARANCE_DYNAMICCOLORS -> activity?.recreate()
     }
   }
 

@@ -46,7 +46,7 @@ abstract class BaseActivity : AppCompatActivity() {
   protected abstract fun bindView(): View
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    if (PreferencesManager.appearanceMaterialYou) {
+    if (PreferencesManager.appearanceDynamicColors) {
       DynamicColors.applyToActivityIfAvailable(this)
     }
     configureWindowBarColors()
