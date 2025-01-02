@@ -22,8 +22,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,6 +39,8 @@ import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectListBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
 import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
 import com.teixeira0x.subtypo.ui.common.utils.showToastShort
+import com.teixeira0x.subtypo.ui.optionlist.dialog.showOptionListDialog
+import com.teixeira0x.subtypo.ui.optionlist.model.OptionItem
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
 import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectClickListener
 import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectListAdapter
@@ -164,29 +164,25 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
   }
 
   private fun showProjectMenu(view: View, project: Project) {
-    PopupMenu(requireContext(), view).apply {
-      if (menu is MenuBuilder) {
-        (menu as MenuBuilder).setOptionalIconsVisible(true)
-      }
-      menu.add(0, 0, 0, R.string.edit).setIcon(R.drawable.ic_pencil)
-      menu.add(0, 1, 0, R.string.delete).setIcon(R.drawable.ic_delete)
-
-      setOnMenuItemClickListener { item ->
-        when (item.itemId) {
-          0 -> showEditProjectSheet(project.id)
-          1 -> {
-            requireContext().showConfirmDialog(
-              title = getString(R.string.delete),
-              message =
-                getString(R.string.msg_delete_confirmation, project.name),
-            ) { _, _ ->
-              viewModel.doIntent(ProjectListIntent.DeleteProject(project.id))
-            }
+    showOptionListDialog(
+      context = requireContext(),
+      options =
+        listOf(
+          OptionItem(R.drawable.ic_pencil, getString(R.string.edit)),
+          OptionItem(R.drawable.ic_delete, getString(R.string.delete)),
+        ),
+    ) { position, _ ->
+      when (position) {
+        0 -> showEditProjectSheet(project.id)
+        1 -> {
+          requireContext().showConfirmDialog(
+            title = getString(R.string.delete),
+            message = getString(R.string.msg_delete_confirmation, project.name),
+          ) { _, _ ->
+            viewModel.doIntent(ProjectListIntent.DeleteProject(project.id))
           }
         }
-        true
       }
-      show()
     }
   }
 
