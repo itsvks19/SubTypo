@@ -67,6 +67,7 @@
     <item name="alertDialogStyle">@style/MaterialAlertDialog.SubTypo</item>
     <item name="buttonBarPositiveButtonStyle">@style/Widget.SubTypo.PositiveButton.Dialog</item>
     <item name="buttonBarNegativeButtonStyle">@style/Widget.SubTypo.NegativeButton.Dialog</item>
+    <item name="android:windowIsFloating">true</item>
   </style>
 
   <style name="ThemeOverlay.SubTypo.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">

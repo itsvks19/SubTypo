@@ -2,12 +2,11 @@
 
   <style name="MaterialAlertDialog.SubTypo" parent="MaterialAlertDialog.Material3">
     <item name="android:windowAnimationStyle">@style/AnimationSubTypoDialog</item>
-    <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.MediumComponent</item>
+    <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.LargeComponent</item>
     <item name="shapeAppearanceOverlay">@null</item>
   </style>
 
   <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
-    <item name="backgroundTint">?attr/colorSurface</item>
     <item name="android:windowAnimationStyle">@style/AnimationSubTypoDialog</item>
     <item name="shapeAppearance">@style/ShapeAppearance.SubTypo.LargeComponent</item>
   </style>
