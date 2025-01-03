@@ -46,7 +46,7 @@ import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityProjectBinding
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
-import com.teixeira0x.subtypo.ui.common.utils.showToastShort
+import com.teixeira0x.subtypo.ui.common.util.showToastShort
 import com.teixeira0x.subtypo.ui.videoplayer.mvi.VideoPlayerViewEvent
 import com.teixeira0x.subtypo.ui.videoplayer.viewmodel.VideoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint

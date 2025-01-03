@@ -37,8 +37,8 @@ import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectListBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
-import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
-import com.teixeira0x.subtypo.ui.common.utils.showToastShort
+import com.teixeira0x.subtypo.ui.common.interface.Selectable
+import com.teixeira0x.subtypo.ui.common.util.showToastShort
 import com.teixeira0x.subtypo.ui.optionlist.dialog.showOptionListDialog
 import com.teixeira0x.subtypo.ui.optionlist.model.OptionItem
 import com.teixeira0x.subtypo.ui.projectedit.fragment.ProjectEditSheetFragment
@@ -46,7 +46,7 @@ import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectClickListener
 import com.teixeira0x.subtypo.ui.projectlist.adapter.ProjectListAdapter
 import com.teixeira0x.subtypo.ui.projectlist.mvi.ProjectListIntent
 import com.teixeira0x.subtypo.ui.projectlist.mvi.ProjectListViewState
-import com.teixeira0x.subtypo.ui.projectlist.utils.ProjectKeyProvider
+import com.teixeira0x.subtypo.ui.projectlist.util.ProjectKeyProvider
 import com.teixeira0x.subtypo.ui.projectlist.viewmodel.ProjectListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn

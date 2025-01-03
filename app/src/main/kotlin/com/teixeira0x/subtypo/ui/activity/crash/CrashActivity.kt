@@ -28,7 +28,7 @@ import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
 import com.teixeira0x.subtypo.ui.common.activity.BaseActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityCrashBinding
-import com.teixeira0x.subtypo.ui.common.utils.openUrl
+import com.teixeira0x.subtypo.ui.common.util.openUrl
 import java.util.Date
 
 class CrashActivity : BaseActivity() {

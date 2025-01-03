@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.core.preferences
+package com.teixeira0x.subtypo.core.preference
 
 import android.content.Context
 import android.content.SharedPreferences

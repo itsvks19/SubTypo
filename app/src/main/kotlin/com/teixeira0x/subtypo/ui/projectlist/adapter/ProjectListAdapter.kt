@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutProjectItemBinding
-import com.teixeira0x.subtypo.ui.common.utils.layoutInflater
+import com.teixeira0x.subtypo.ui.common.util.layoutInflater
 
 class ProjectListAdapter(
   private val selectionTracker: SelectionTracker<Long>,

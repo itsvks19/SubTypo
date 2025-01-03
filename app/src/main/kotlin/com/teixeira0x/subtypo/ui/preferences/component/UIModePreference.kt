@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.preferences.components
+package com.teixeira0x.subtypo.ui.preferences.component
 
 import android.content.Context
 import android.util.AttributeSet

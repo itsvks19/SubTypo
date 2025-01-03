@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutProjectItemBinding
-import com.teixeira0x.subtypo.ui.common.utils.VideoUtils.getVideoThumbnail
+import com.teixeira0x.subtypo.ui.common.util.VideoUtils.getVideoThumbnail
 
 class ProjectViewHolder(
   private val listener: ProjectClickListener,

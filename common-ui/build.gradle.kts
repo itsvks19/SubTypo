@@ -41,5 +41,5 @@ dependencies {
   // Google
   implementation(libs.google.material)
 
-  implementation(project(":core:preferences"))
+  implementation(project(":core:preference"))
 }

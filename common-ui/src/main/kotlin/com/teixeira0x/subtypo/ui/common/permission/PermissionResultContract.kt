@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.ui.common.R
-import com.teixeira0x.subtypo.ui.common.utils.permission.checkPermissions
+import com.teixeira0x.subtypo.ui.common.util.permission.checkPermissions
 
 class PermissionResultContract(private val fragment: Fragment) {
 

@@ -35,4 +35,4 @@ rootProject.name = "SubTypo"
 
 include(":app", ":common-ui", ":utils")
 
-include(":core:data", ":core:domain", ":core:preferences")
+include(":core:data", ":core:domain", ":core:preference")

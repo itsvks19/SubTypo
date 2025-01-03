@@ -13,26 +13,18 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.utils
+package com.teixeira0x.subtypo.ui.common.util
 
 import android.content.Context
-import android.widget.Toast
+import android.content.Intent
+import android.net.Uri
 
-fun Context.showToastLong(message: Int) {
-  showToast(getString(message), Toast.LENGTH_LONG)
+fun Context.openUrl(url: String) {
+  startActivity(
+    Intent().apply {
+      addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      action = Intent.ACTION_VIEW
+      data = Uri.parse(url)
+    }
+  )
 }
-
-fun Context.showToastLong(message: String) {
-  showToast(message, Toast.LENGTH_LONG)
-}
-
-fun Context.showToastShort(message: Int) {
-  showToast(getString(message), Toast.LENGTH_SHORT)
-}
-
-fun Context.showToastShort(message: String) {
-  showToast(message, Toast.LENGTH_SHORT)
-}
-
-fun Context.showToast(message: String, duration: Int) =
-  Toast.makeText(this, message, duration).show()

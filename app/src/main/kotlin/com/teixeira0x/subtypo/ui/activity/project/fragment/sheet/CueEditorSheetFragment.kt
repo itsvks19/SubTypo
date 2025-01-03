@@ -30,7 +30,7 @@ import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentCueEditorBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
 import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
-import com.teixeira0x.subtypo.ui.common.utils.EditTextUtils.afterTextChanged
+import com.teixeira0x.subtypo.ui.common.util.EditTextUtils.afterTextChanged
 import com.teixeira0x.subtypo.utils.TimeUtils.getFormattedTime
 import com.teixeira0x.subtypo.utils.TimeUtils.getMilliseconds
 import dagger.hilt.android.AndroidEntryPoint

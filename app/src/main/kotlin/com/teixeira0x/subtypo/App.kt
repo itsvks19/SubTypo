@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import com.blankj.utilcode.util.ThrowableUtils
-import com.teixeira0x.subtypo.core.preferences.PreferencesManager
+import com.teixeira0x.subtypo.core.preference.PreferencesManager
 import com.teixeira0x.subtypo.ui.activity.crash.CrashActivity
 import dagger.hilt.android.HiltAndroidApp
 import kotlin.system.exitProcess

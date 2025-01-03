@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teixeira0x.subtypo.core.domain.model.Cue
 import com.teixeira0x.subtypo.ui.common.adapter.holder.BindingViewHolder
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutCueItemBinding
-import com.teixeira0x.subtypo.ui.common.utils.layoutInflater
+import com.teixeira0x.subtypo.ui.common.util.layoutInflater
 import com.teixeira0x.subtypo.utils.TimeUtils.getFormattedTime
 
 typealias CueViewHolder = BindingViewHolder<LayoutCueItemBinding>

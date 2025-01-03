@@ -1,4 +1,4 @@
-package com.teixeira0x.subtypo.ui.projectlist.utils
+package com.teixeira0x.subtypo.ui.projectlist.util
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.widget.RecyclerView

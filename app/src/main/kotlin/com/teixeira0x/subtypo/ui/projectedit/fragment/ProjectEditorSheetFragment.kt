@@ -35,8 +35,8 @@ import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract
 import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract.Companion.isPermissionsGranted
-import com.teixeira0x.subtypo.ui.common.utils.VideoUtils.getVideoThumbnail
-import com.teixeira0x.subtypo.ui.common.utils.showToastShort
+import com.teixeira0x.subtypo.ui.common.util.VideoUtils.getVideoThumbnail
+import com.teixeira0x.subtypo.ui.common.util.showToastShort
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState

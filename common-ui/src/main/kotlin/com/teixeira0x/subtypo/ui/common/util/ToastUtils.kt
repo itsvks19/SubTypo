@@ -13,9 +13,26 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.utils
+package com.teixeira0x.subtypo.ui.common.util
 
-import android.content.res.Resources
+import android.content.Context
+import android.widget.Toast
 
-fun Int.dpToPx(): Int =
-  (this * Resources.getSystem().displayMetrics.density).toInt()
+fun Context.showToastLong(message: Int) {
+  showToast(getString(message), Toast.LENGTH_LONG)
+}
+
+fun Context.showToastLong(message: String) {
+  showToast(message, Toast.LENGTH_LONG)
+}
+
+fun Context.showToastShort(message: Int) {
+  showToast(getString(message), Toast.LENGTH_SHORT)
+}
+
+fun Context.showToastShort(message: String) {
+  showToast(message, Toast.LENGTH_SHORT)
+}
+
+fun Context.showToast(message: String, duration: Int) =
+  Toast.makeText(this, message, duration).show()

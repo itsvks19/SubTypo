@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.R
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.MaterialColors
-import com.teixeira0x.subtypo.core.preferences.PreferencesManager
+import com.teixeira0x.subtypo.core.preference.PreferencesManager
 import com.teixeira0x.subtypo.ui.common.fragment.ProgressDialogFragment
 
 /**

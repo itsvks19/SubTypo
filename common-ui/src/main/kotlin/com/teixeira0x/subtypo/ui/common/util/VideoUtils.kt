@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.utils
+package com.teixeira0x.subtypo.ui.common.util
 
 import android.content.Context
 import android.graphics.Bitmap

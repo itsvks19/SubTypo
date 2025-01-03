@@ -26,11 +26,11 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.color.DynamicColors
 import com.teixeira0x.subtypo.App
 import com.teixeira0x.subtypo.BuildConfig
-import com.teixeira0x.subtypo.core.preferences.PreferencesManager
+import com.teixeira0x.subtypo.core.preference.PreferencesManager
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToLibsActivity
 import com.teixeira0x.subtypo.ui.common.R
-import com.teixeira0x.subtypo.ui.common.interfaces.Selectable
-import com.teixeira0x.subtypo.ui.common.utils.openUrl
+import com.teixeira0x.subtypo.ui.common.interface.Selectable
+import com.teixeira0x.subtypo.ui.common.util.openUrl
 import com.teixeira0x.subtypo.ui.preferences.viewmodel.PreferencesViewModel
 
 class PreferencesFragment :

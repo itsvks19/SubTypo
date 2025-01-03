@@ -18,7 +18,7 @@ package com.teixeira0x.subtypo.ui.optionlist.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutOptionItemBinding
-import com.teixeira0x.subtypo.ui.common.utils.layoutInflater
+import com.teixeira0x.subtypo.ui.common.util.layoutInflater
 import com.teixeira0x.subtypo.ui.optionlist.model.OptionItem
 
 class OptionListAdapter(

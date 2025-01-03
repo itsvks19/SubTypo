@@ -13,18 +13,9 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.utils
+package com.teixeira0x.subtypo.ui.common.util
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import android.content.res.Resources
 
-fun Context.openUrl(url: String) {
-  startActivity(
-    Intent().apply {
-      addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      action = Intent.ACTION_VIEW
-      data = Uri.parse(url)
-    }
-  )
-}
+fun Int.dpToPx(): Int =
+  (this * Resources.getSystem().displayMetrics.density).toInt()

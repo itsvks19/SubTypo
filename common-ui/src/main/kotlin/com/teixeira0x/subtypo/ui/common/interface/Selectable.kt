@@ -13,12 +13,11 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.utils
+package com.teixeira0x.subtypo.ui.common.interface
 
-import android.app.Activity
-import android.content.Context
-import android.view.LayoutInflater
+interface Selectable {
 
-val Context.layoutInflater: LayoutInflater
-  get() =
-    if (this is Activity) this.layoutInflater else LayoutInflater.from(this)
+  fun onSelect()
+
+  fun onUnselect()
+}
