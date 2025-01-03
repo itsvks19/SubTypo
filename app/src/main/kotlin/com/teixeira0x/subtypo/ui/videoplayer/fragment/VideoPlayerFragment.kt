@@ -13,21 +13,20 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.activity.project.fragment
+package com.teixeira0x.subtypo.ui.videoplayer.fragment
 
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.media3.common.ErrorMessageProvider
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
-import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.Player.EVENT_AVAILABLE_COMMANDS_CHANGED
 import androidx.media3.common.Player.EVENT_IS_PLAYING_CHANGED
@@ -37,16 +36,17 @@ import androidx.media3.common.Player.Events
 import androidx.media3.common.VideoSize
 import androidx.media3.common.text.Cue.Builder
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.mediacodec.MediaCodecRenderer.DecoderInitializationException
-import androidx.media3.exoplayer.mediacodec.MediaCodecUtil.DecoderQueryException
-import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel
-import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel.VideoEvent
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentPlayerBinding
+import com.teixeira0x.subtypo.ui.videoplayer.mvi.VideoPlayerViewEvent
+import com.teixeira0x.subtypo.ui.videoplayer.util.PlayerErrorMessageProvider
+import com.teixeira0x.subtypo.ui.videoplayer.viewmodel.VideoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class PlayerFragment : Fragment() {
+class VideoPlayerFragment : Fragment() {
 
   companion object {
     private const val HORIZONTAL_ASPECT_RATIO = 1.7770000f
@@ -55,13 +55,11 @@ class PlayerFragment : Fragment() {
   }
 
   private val mainHandler = Handler(Looper.getMainLooper())
-
-  private val videoViewModel by
-    viewModels<VideoViewModel>(ownerProducer = { requireActivity() })
+  private val viewModel by activityViewModels<VideoPlayerViewModel>()
 
   private var _binding: FragmentPlayerBinding? = null
   private val binding: FragmentPlayerBinding
-    get() = checkNotNull(_binding) { "VidePlayerFragment has been destroyed" }
+    get() = checkNotNull(_binding) { "VideoPlayerFragment has been destroyed" }
 
   private var updateSubtitleAction: Runnable? = null
   private var player: ExoPlayer? = null
@@ -83,7 +81,9 @@ class PlayerFragment : Fragment() {
   }
 
   override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
-    binding.playerView.setErrorMessageProvider(PlayerErrorMessageProvider())
+    binding.playerView.setErrorMessageProvider(
+      PlayerErrorMessageProvider(requireContext())
+    )
     binding.playerView.controllerShowTimeoutMs = 2000
     binding.playerView.useController = true
     observeViewModel()
@@ -107,28 +107,27 @@ class PlayerFragment : Fragment() {
   }
 
   private fun observeViewModel() {
-    videoViewModel.videoEvent.observe(this) { event ->
-      when (event) {
-        is VideoEvent.Play -> playVideo()
-        is VideoEvent.Pause -> pauseVideo()
+    viewModel.customViewEvent
+      .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+      .onEach { event ->
+        when (event) {
+          is VideoPlayerViewEvent.LoadUri -> prepareMedia(event.videoUri)
+          is VideoPlayerViewEvent.LoadCues -> updateSubtitle()
+          is VideoPlayerViewEvent.Visibility -> {
+            if (event.visible) {
+              initializePlayer()
+            } else releasePlayer()
+          }
+          is VideoPlayerViewEvent.Pause -> pauseVideo()
+          is VideoPlayerViewEvent.Play -> playVideo()
+        }
       }
-    }
-
-    videoViewModel.videoUriData.observe(this) { videoUri ->
-      prepareMedia(videoUri)
-    }
-    videoViewModel.cuesData.observe(this) { updateSubtitle() }
-    videoViewModel.isPlayerVisibleData.observe(this) { visible ->
-      if (visible) {
-        initializePlayer()
-      } else releasePlayer()
-    }
+      .launchIn(viewLifecycleOwner.lifecycleScope)
   }
 
   private fun initializePlayer() {
     if (player == null) {
       updateSubtitleAction = Runnable { updateSubtitle() }
-
       _binding?.playerView?.player =
         ExoPlayer.Builder(requireContext())
           .setSeekBackIncrementMs(DEFAULT_SEEK_BACK_MS)
@@ -138,7 +137,7 @@ class PlayerFragment : Fragment() {
       player?.addListener(Listener())
     }
 
-    prepareMedia(videoViewModel.videoUriData.value!!)
+    prepareMedia(viewModel.videoUri)
   }
 
   private fun releasePlayer() {
@@ -152,15 +151,17 @@ class PlayerFragment : Fragment() {
   private fun prepareMedia(videoUri: String) {
     player?.apply {
       clearMediaItems()
-      setMediaItem(MediaItem.fromUri(videoUri))
-      prepare()
+      if (videoUri.isNotEmpty()) {
+        setMediaItem(MediaItem.fromUri(videoUri))
+        prepare()
 
-      seekTo(videoViewModel.videoPosition)
+        seekTo(viewModel.videoPosition)
+      }
     }
   }
 
   private fun saveVideoPosition() {
-    player?.let { videoViewModel.saveVideoPosition(it.currentPosition) }
+    player?.let { viewModel.saveVideoPosition(it.currentPosition) }
   }
 
   private fun playVideo() {
@@ -174,7 +175,7 @@ class PlayerFragment : Fragment() {
 
   private fun updateSubtitle() {
     val player = player
-    val cues = videoViewModel.cuesData.value!!
+    val cues = viewModel.cues
     if (cues.isEmpty() || player == null) {
       return
     }
@@ -205,12 +206,13 @@ class PlayerFragment : Fragment() {
           if (height == 0 || width == 0) 0F
           else (width * videoSize.pixelWidthHeightRatio) / height
 
-        if (videoAspectRatio <= HORIZONTAL_ASPECT_RATIO) {
-          _binding?.root?.apply {
-            layoutParams.height =
+        _binding?.root?.apply {
+          layoutParams.height =
+            if (videoAspectRatio <= HORIZONTAL_ASPECT_RATIO) {
               resources.getDimensionPixelSize(R.dimen.video_view_height_max)
-            requestLayout()
-          }
+            } else ViewGroup.LayoutParams.WRAP_CONTENT
+
+          requestLayout()
         }
       }
     }
@@ -226,47 +228,6 @@ class PlayerFragment : Fragment() {
       ) {
         updateSubtitleAction?.let { mainHandler.post(it) }
       }
-    }
-  }
-
-  inner class PlayerErrorMessageProvider :
-    ErrorMessageProvider<PlaybackException> {
-
-    override fun getErrorMessage(e: PlaybackException): Pair<Int, String> {
-      var errorString = getString(R.string.video_player_error_generic)
-      val cause = e.cause
-
-      if (cause is DecoderInitializationException) {
-        val codecInfo = cause.codecInfo
-        errorString =
-          if (codecInfo == null) {
-            // Special case for decoder initialization failures.
-            when {
-              cause.cause is DecoderQueryException -> {
-                getString(R.string.video_player_error_querying_decoders)
-              }
-              cause.secureDecoderRequired -> {
-                getString(
-                  R.string.video_player_error_no_secure_decoder,
-                  cause.mimeType,
-                )
-              }
-              else -> {
-                getString(
-                  R.string.video_player_error_no_decoder,
-                  cause.mimeType,
-                )
-              }
-            }
-          } else {
-            getString(
-              R.string.video_player_error_instantiating_decoder,
-              codecInfo.name,
-            )
-          }
-      }
-
-      return Pair.create(0, errorString)
     }
   }
 }

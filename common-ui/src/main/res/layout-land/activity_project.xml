@@ -30,29 +30,22 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-      <FrameLayout
-        android:id="@+id/player_container"
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_player"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:name="com.teixeira0x.subtypo.ui.videoplayer.fragment.VideoPlayerFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/divider"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.fragment.app.FragmentContainerView
-          android:id="@+id/fragment_player"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:name="com.teixeira0x.subtypo.ui.activity.project.fragment.PlayerFragment" />
-
-      </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
       <View
         android:id="@+id/divider"
         android:layout_width="@dimen/divider_size"
         android:layout_height="0dp"
         android:background="?attr/colorOutlineVariant"
-        app:layout_constraintStart_toEndOf="@id/player_container"
+        app:layout_constraintStart_toEndOf="@id/fragment_player"
         app:layout_constraintEnd_toStartOf="@id/cues_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -30,22 +30,15 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-      <FrameLayout
-        android:id="@+id/player_container"
+      <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_player"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:name="com.teixeira0x.subtypo.ui.videoplayer.fragment.VideoPlayerFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cues_container"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.fragment.app.FragmentContainerView
-          android:id="@+id/fragment_player"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:name="com.teixeira0x.subtypo.ui.activity.project.fragment.PlayerFragment" />
-
-      </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
       <FrameLayout
         android:id="@+id/cues_container"
@@ -54,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_container">
+        app:layout_constraintTop_toBottomOf="@id/fragment_player">
 
         <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/rv_cues"

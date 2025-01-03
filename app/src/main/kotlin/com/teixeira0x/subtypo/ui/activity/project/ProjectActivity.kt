@@ -27,6 +27,8 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.core.view.updatePaddingRelative
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
@@ -39,20 +41,23 @@ import com.teixeira0x.subtypo.ui.activity.project.viewmodel.ProjectViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.ProjectViewModel.ProjectState
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel.SubtitleState
-import com.teixeira0x.subtypo.ui.activity.project.viewmodel.VideoViewModel
 import com.teixeira0x.subtypo.ui.common.Constants
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityProjectBinding
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.common.utils.showToastShort
+import com.teixeira0x.subtypo.ui.videoplayer.mvi.VideoPlayerViewEvent
+import com.teixeira0x.subtypo.ui.videoplayer.viewmodel.VideoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class ProjectActivity : BaseEdgeToEdgeActivity() {
 
   private val projectViewModel by viewModels<ProjectViewModel>()
-  private val videoViewModel by viewModels<VideoViewModel>()
+  private val videoPlayerViewModel by viewModels<VideoPlayerViewModel>()
   private val subtitleViewModel by viewModels<SubtitleViewModel>()
 
   private val subtitleFileManager by lazy { FileManager(this) }
@@ -111,9 +116,9 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
 
   override fun onPrepareOptionsMenu(menu: Menu): Boolean {
     menu.findItem(R.id.menu_show_video).apply {
-      isVisible = videoViewModel.videoUriData.value!!.isNotEmpty()
+      isVisible = videoPlayerViewModel.videoUri.isNotEmpty()
 
-      if (videoViewModel.isPlayerVisibleData.value!!) {
+      if (videoPlayerViewModel.isPlayerVisible) {
         setIcon(R.drawable.ic_video_off)
         setTitle(R.string.video_player_hide)
       } else {
@@ -136,7 +141,9 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
       }
       R.id.menu_import_subtitle -> subtitleFileManager.launchPicker()
       R.id.menu_show_video ->
-        videoViewModel.setPlayerVisible(!binding.playerContainer.isVisible)
+        videoPlayerViewModel.setPlayerVisibility(
+          !binding.fragmentPlayer.isVisible
+        )
       R.id.menu_open_drawer -> {
         binding.drawerLayout.apply {
           if (!isDrawerOpen(GravityCompat.END)) {
@@ -199,9 +206,9 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
     binding.fabAddCue.setOnClickListener {
       val subtitleId = subtitleViewModel.selectedSubtitleId
       if (subtitleId > 0) {
-        videoViewModel.doEvent(VideoViewModel.VideoEvent.Pause)
+        videoPlayerViewModel.doEvent(VideoPlayerViewEvent.Pause)
         CueEditorSheetFragment.newInstance(
-            videoPosition = videoViewModel.videoPosition,
+            videoPosition = videoPlayerViewModel.videoPosition,
             subtitleId = subtitleId,
           )
           .show(supportFragmentManager, null)
@@ -249,18 +256,28 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
       }
     }
 
-    videoViewModel.isPlayerVisibleData.observe(this) { visible ->
-      binding.playerContainer.isVisible = visible
-      binding.divider?.isVisible = visible
-      invalidateMenu()
-    }
+    videoPlayerViewModel.customViewEvent
+      .flowWithLifecycle(lifecycle)
+      .onEach { event ->
+        if (event is VideoPlayerViewEvent.Visibility) {
+          binding.fragmentPlayer.isVisible = event.visible
+          binding.divider?.isVisible = event.visible
+          invalidateMenu()
+        }
+      }
+      .launchIn(lifecycleScope)
   }
 
   private fun onProjectLoaded(stateLoaded: ProjectState.Loaded) {
     val project = stateLoaded.project
     supportActionBar?.title = project.name
 
-    videoViewModel.loadVideo(project.videoUri)
+    val videoUri = project.videoUri
+    if (videoUri.isNotEmpty()) {
+      videoPlayerViewModel.loadVideo(videoUri)
+    } else {
+      videoPlayerViewModel.setPlayerVisibility(false)
+    }
   }
 
   private fun onSubtitlesLoaded(stateLoaded: SubtitleState.Loaded) {
@@ -270,7 +287,7 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
     supportActionBar?.subtitle =
       selectedSubtitle?.let { it.name + it.format.extension }
     cueListAdapter.submitList(cues)
-    videoViewModel.updateCues(cues)
+    videoPlayerViewModel.setCues(cues)
 
     binding.cuesLoading.isVisible = false
     binding.rvCues.isVisible = true
