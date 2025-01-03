@@ -30,8 +30,8 @@ import com.teixeira0x.subtypo.ui.activity.main.model.NavigationItem
 import com.teixeira0x.subtypo.ui.activity.main.viewmodel.MainViewModel
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
+import com.teixeira0x.subtypo.ui.common.base.Selectable
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityMainBinding
-import com.teixeira0x.subtypo.ui.common.interface.Selectable
 import com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment
 import com.teixeira0x.subtypo.ui.projectlist.fragment.ProjectListFragment
 import dagger.hilt.android.AndroidEntryPoint

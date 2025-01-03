@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common.interface
+package com.teixeira0x.subtypo.ui.common.base
 
 interface Selectable {
 

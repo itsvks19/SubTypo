@@ -35,9 +35,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
 import com.teixeira0x.subtypo.ui.common.R
+import com.teixeira0x.subtypo.ui.common.base.Selectable
 import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectListBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
-import com.teixeira0x.subtypo.ui.common.interface.Selectable
 import com.teixeira0x.subtypo.ui.common.util.showToastShort
 import com.teixeira0x.subtypo.ui.optionlist.dialog.showOptionListDialog
 import com.teixeira0x.subtypo.ui.optionlist.model.OptionItem
