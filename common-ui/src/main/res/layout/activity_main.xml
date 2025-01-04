@@ -42,7 +42,7 @@
         android:id="@+id/fragment_preferences"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.teixeira0x.subtypo.ui.preferences.fragment.PreferencesFragment" />
+        android:name="com.teixeira0x.subtypo.ui.preference.fragment.PreferencesFragment" />
 
     </ViewFlipper>
 

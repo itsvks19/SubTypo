@@ -22,11 +22,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.UriUtils
-import com.teixeira0x.subtypo.core.domain.model.Subtitle
-import com.teixeira0x.subtypo.core.domain.subtitle.mapper.SubtitleFormatMapper.toSubtitleFormat
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.GetAllSubtitlesUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.InsertSubtitleUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.RemoveSubtitleUseCase
+import com.teixeira0x.subtypo.core.subtitle.converter.FormatConverter
+import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -130,7 +130,7 @@ constructor(
               it.readText()
             } ?: ""
 
-          val format = ".srt".toSubtitleFormat()
+          val format = FormatConverter.fromFileExtension(".srt")
           val cues = format.parseText(fileContent)
 
           val id =

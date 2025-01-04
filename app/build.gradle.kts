@@ -125,11 +125,8 @@ dependencies {
   implementation(libs.util.logback.android)
   debugImplementation(libs.util.leakcanary)
 
-  implementation(project(":core:data"))
-  implementation(project(":core:domain"))
-  implementation(project(":core:preference"))
+  implementation(project(":core"))
   implementation(project(":common-ui"))
-  implementation(project(":utils"))
 
   // Test
   testImplementation(libs.tests.junit)

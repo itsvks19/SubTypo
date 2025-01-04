@@ -18,28 +18,35 @@ import com.teixeira0x.subtypo.build.BuildConfig
 plugins {
   id("com.android.library")
   id("kotlin-android")
+  id("kotlin-kapt")
+
+  id("com.google.dagger.hilt.android")
 }
 
 android {
-  namespace = "${BuildConfig.packageName}.ui.common"
+  namespace = "${BuildConfig.packageName}.core.data"
 
-  buildFeatures.viewBinding = true
+  buildFeatures.apply { viewBinding = false }
 }
 
 dependencies {
+  kapt(libs.androidx.room.compiler)
+  implementation(libs.androidx.room.runtime)
+  implementation(libs.androidx.room.ktx)
   implementation(libs.androidx.appcompat)
-  implementation(libs.androidx.annotation)
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.fragment.ktx)
-  implementation(libs.androidx.lifecycle.runtime)
-  implementation(libs.androidx.lifecycle.viewmodel)
   implementation(libs.androidx.preference)
-  implementation(libs.androidx.exoplayer)
-  implementation(libs.androidx.exoplayer.dash)
-  implementation(libs.androidx.exoplayer.ui)
 
   // Google
-  implementation(libs.google.material)
+  kapt(libs.google.hilt.compiler)
+  implementation(libs.google.hilt)
+  implementation(libs.google.gson)
 
-  implementation(project(":core"))
+  // Kotlin
+  implementation(libs.kotlin.coroutines.core)
+  implementation(libs.kotlin.coroutines.android)
+
+  // Util
+  implementation(libs.util.slf4j.api)
+  implementation(libs.util.logback.android)
 }

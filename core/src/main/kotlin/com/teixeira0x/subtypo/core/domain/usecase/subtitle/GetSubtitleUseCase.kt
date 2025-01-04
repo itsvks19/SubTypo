@@ -13,18 +13,18 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.videoplayer.mvi
+package com.teixeira0x.subtypo.core.domain.usecase.subtitle
 
-import com.teixeira0x.subtypo.core.subtitle.model.Cue
+import com.teixeira0x.subtypo.core.domain.repository.subtitle.SubtitleRepository
+import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
+import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-sealed class VideoPlayerViewEvent {
-  data class LoadUri(val videoUri: String) : VideoPlayerViewEvent()
+class GetSubtitleUseCase
+@Inject
+constructor(private val repository: SubtitleRepository) {
 
-  data class LoadCues(val cues: List<Cue>) : VideoPlayerViewEvent()
-
-  data class Visibility(val visible: Boolean) : VideoPlayerViewEvent()
-
-  data object Pause : VideoPlayerViewEvent()
-
-  data object Play : VideoPlayerViewEvent()
+  operator fun invoke(id: Long): Flow<Subtitle?> {
+    return repository.getSubtitle(id)
+  }
 }

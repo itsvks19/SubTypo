@@ -13,18 +13,15 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.videoplayer.mvi
+package com.teixeira0x.subtypo.core.subtitle.format
 
+import com.teixeira0x.subtypo.core.subtitle.exception.SubtitleParseException
 import com.teixeira0x.subtypo.core.subtitle.model.Cue
 
-sealed class VideoPlayerViewEvent {
-  data class LoadUri(val videoUri: String) : VideoPlayerViewEvent()
+abstract class SubtitleFormat(val name: String, val extension: String) {
 
-  data class LoadCues(val cues: List<Cue>) : VideoPlayerViewEvent()
+  abstract fun toText(cues: List<Cue>): String
 
-  data class Visibility(val visible: Boolean) : VideoPlayerViewEvent()
-
-  data object Pause : VideoPlayerViewEvent()
-
-  data object Play : VideoPlayerViewEvent()
+  @Throws(SubtitleParseException::class)
+  abstract fun parseText(text: String): List<Cue>
 }

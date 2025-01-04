@@ -13,18 +13,31 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.videoplayer.mvi
+package com.teixeira0x.subtypo.core.data.db.entity
 
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.teixeira0x.subtypo.core.subtitle.model.Cue
 
-sealed class VideoPlayerViewEvent {
-  data class LoadUri(val videoUri: String) : VideoPlayerViewEvent()
-
-  data class LoadCues(val cues: List<Cue>) : VideoPlayerViewEvent()
-
-  data class Visibility(val visible: Boolean) : VideoPlayerViewEvent()
-
-  data object Pause : VideoPlayerViewEvent()
-
-  data object Play : VideoPlayerViewEvent()
-}
+@Entity(
+  tableName = "subtitles",
+  foreignKeys =
+    [
+      ForeignKey(
+        entity = ProjectEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["projectId"],
+        onDelete = ForeignKey.CASCADE,
+      )
+    ],
+  indices = [Index(value = ["projectId"])],
+)
+data class SubtitleEntity(
+  @PrimaryKey(autoGenerate = true) val id: Long,
+  val projectId: Long,
+  val name: String,
+  val format: Int,
+  val cues: List<Cue>,
+)

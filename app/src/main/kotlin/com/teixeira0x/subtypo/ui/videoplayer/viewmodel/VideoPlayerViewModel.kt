@@ -17,7 +17,7 @@ package com.teixeira0x.subtypo.ui.videoplayer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teixeira0x.subtypo.core.domain.model.Cue
+import com.teixeira0x.subtypo.core.subtitle.model.Cue
 import com.teixeira0x.subtypo.ui.videoplayer.mvi.VideoPlayerViewEvent
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

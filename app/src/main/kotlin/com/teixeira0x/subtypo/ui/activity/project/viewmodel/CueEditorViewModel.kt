@@ -19,9 +19,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teixeira0x.subtypo.core.domain.model.Cue
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.GetSubtitleUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.UpdateSubtitleUseCase
+import com.teixeira0x.subtypo.core.subtitle.model.Cue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first

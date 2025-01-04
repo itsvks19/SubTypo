@@ -19,7 +19,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.teixeira0x.subtypo.core.domain.model.Subtitle
+import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
 import com.teixeira0x.subtypo.ui.common.adapter.holder.BindingViewHolder
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutSubtitleItemBinding
 import com.teixeira0x.subtypo.ui.common.util.layoutInflater

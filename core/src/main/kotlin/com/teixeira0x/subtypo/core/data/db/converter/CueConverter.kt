@@ -13,18 +13,23 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.videoplayer.mvi
+package com.teixeira0x.subtypo.core.data.db.converter
 
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.teixeira0x.subtypo.core.subtitle.model.Cue
 
-sealed class VideoPlayerViewEvent {
-  data class LoadUri(val videoUri: String) : VideoPlayerViewEvent()
+class CueConverter {
+  private val gson = Gson()
 
-  data class LoadCues(val cues: List<Cue>) : VideoPlayerViewEvent()
+  @TypeConverter
+  fun fromCueList(cues: List<Cue>): String {
+    return gson.toJson(cues)
+  }
 
-  data class Visibility(val visible: Boolean) : VideoPlayerViewEvent()
-
-  data object Pause : VideoPlayerViewEvent()
-
-  data object Play : VideoPlayerViewEvent()
+  @TypeConverter
+  fun toCueList(cueJson: String): List<Cue> {
+    return gson.fromJson(cueJson, object : TypeToken<List<Cue>>() {}.type)
+  }
 }

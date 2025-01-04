@@ -21,8 +21,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputLayout
-import com.teixeira0x.subtypo.core.data.CueValidator
-import com.teixeira0x.subtypo.core.data.ValidationResult
+import com.teixeira0x.subtypo.core.subtitle.util.TimeUtils.getFormattedTime
+import com.teixeira0x.subtypo.core.subtitle.util.TimeUtils.getMilliseconds
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.CueEditorViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.CueEditorViewModel.CueEditorState
 import com.teixeira0x.subtypo.ui.common.Constants
@@ -31,8 +31,8 @@ import com.teixeira0x.subtypo.ui.common.databinding.FragmentCueEditorBinding
 import com.teixeira0x.subtypo.ui.common.dialog.showConfirmDialog
 import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
 import com.teixeira0x.subtypo.ui.common.util.EditTextUtils.afterTextChanged
-import com.teixeira0x.subtypo.utils.TimeUtils.getFormattedTime
-import com.teixeira0x.subtypo.utils.TimeUtils.getMilliseconds
+import com.teixeira0x.subtypo.ui.common.validate.ValidationResult
+import com.teixeira0x.subtypo.ui.textedit.validate.CueValidator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

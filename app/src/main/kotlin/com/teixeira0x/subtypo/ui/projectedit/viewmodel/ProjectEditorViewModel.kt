@@ -20,11 +20,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.UriUtils
 import com.teixeira0x.subtypo.core.domain.model.Project
-import com.teixeira0x.subtypo.core.domain.model.Subtitle
 import com.teixeira0x.subtypo.core.domain.usecase.project.GetProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.project.InsertProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.project.UpdateProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.subtitle.InsertSubtitleUseCase
+import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent

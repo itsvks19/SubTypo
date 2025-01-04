@@ -13,24 +13,31 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-pluginManagement {
-  repositories {
-    includeBuild("build-logic")
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package com.teixeira0x.subtypo.core.data.mapper
+
+import com.teixeira0x.subtypo.core.data.db.entity.SubtitleEntity
+import com.teixeira0x.subtypo.core.subtitle.converter.FormatConverter
+import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
+
+object SubtitleDataMapper {
+
+  fun SubtitleEntity.toModel(): Subtitle {
+    return Subtitle(
+      id = id,
+      projectId = projectId,
+      name = name,
+      format = FormatConverter.fromId(format),
+      cues = cues,
+    )
+  }
+
+  fun Subtitle.toEntity(): SubtitleEntity {
+    return SubtitleEntity(
+      id = id,
+      projectId = projectId,
+      name = name,
+      format = FormatConverter.toId(format),
+      cues = cues,
+    )
   }
 }
-
-dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-  repositories {
-    google()
-    mavenCentral()
-    maven { url = uri("https://jitpack.io") }
-  }
-}
-
-rootProject.name = "SubTypo"
-
-include(":app", ":core", ":common-ui")
