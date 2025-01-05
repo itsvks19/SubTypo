@@ -54,6 +54,11 @@ abstract class BaseActivity : AppCompatActivity() {
     setContentView(bindView())
   }
 
+  override fun onDestroy() {
+    dismissProgressDialog()
+    super.onDestroy()
+  }
+
   private fun configureWindowBarColors() {
     window?.apply {
       this.statusBarColor = this@BaseActivity.statusBarColor
@@ -65,8 +70,18 @@ abstract class BaseActivity : AppCompatActivity() {
     }
   }
 
-  protected fun showProgressDialog(message: String? = null) {
-    ProgressDialogFragment.newInstance(message)
+  protected fun showProgressDialog(
+    orientation: Int = ProgressDialogFragment.ORIENTATION_VERTICAL,
+    style: Int = ProgressDialogFragment.STYLE_NO_BACKGROUND,
+    cancelable: Boolean = false,
+    message: String? = null,
+  ) {
+    ProgressDialogFragment.newInstance(
+        orientation = orientation,
+        style = style,
+        cancelable = cancelable,
+        message = message,
+      )
       .also {
         dismissProgressDialog() // Dismiss previous dialog
         progressDialog = it
@@ -75,7 +90,7 @@ abstract class BaseActivity : AppCompatActivity() {
   }
 
   protected fun dismissProgressDialog() {
-    progressDialog?.also { it.dismiss() }
+    progressDialog?.dismiss()
     progressDialog = null
   }
 }

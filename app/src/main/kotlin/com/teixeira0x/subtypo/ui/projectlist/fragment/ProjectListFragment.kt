@@ -59,8 +59,7 @@ class ProjectListFragment : Fragment(), ProjectClickListener, Selectable {
   private val binding: FragmentProjectListBinding
     get() = checkNotNull(_binding) { "ProjectsFragment has been destroyed!" }
 
-  private val viewModel by
-    viewModels<ProjectListViewModel>(ownerProducer = { requireActivity() })
+  private val viewModel by viewModels<ProjectListViewModel>()
 
   private var selectionActionMode: SelectionActionMode? = null
   private lateinit var selectionTracker: SelectionTracker<Long>

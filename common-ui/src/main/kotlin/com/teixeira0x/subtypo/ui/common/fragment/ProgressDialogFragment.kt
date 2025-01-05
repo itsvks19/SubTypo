@@ -16,38 +16,70 @@
 package com.teixeira0x.subtypo.ui.common.fragment
 
 import android.app.Dialog
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.ui.common.Constants
-import com.teixeira0x.subtypo.ui.common.databinding.LayoutProgressDialogBinding
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentProgressDialogBinding
 
 class ProgressDialogFragment : DialogFragment() {
 
   companion object {
+    const val ORIENTATION_VERTICAL = 0
+    const val ORIENTATION_HORIZONTAL = 1
+
+    const val STYLE_DEFAULT = 0
+    const val STYLE_NO_BACKGROUND = 1
 
     @JvmStatic
-    fun newInstance(message: String? = null): ProgressDialogFragment {
+    fun newInstance(
+      orientation: Int = ORIENTATION_VERTICAL,
+      style: Int = STYLE_DEFAULT,
+      cancelable: Boolean = false,
+      message: String? = null,
+    ): ProgressDialogFragment {
       return ProgressDialogFragment().apply {
         if (message != null) {
           arguments =
-            Bundle().apply { putString(Constants.KEY_MESSAGE_ARG, message) }
+            Bundle().apply {
+              putInt(Constants.KEY_ORIENTATION_ARG, orientation)
+              putInt(Constants.KEY_STYLE_ARG, style)
+              putBoolean(Constants.KEY_CANCELABLE_ARG, cancelable)
+              putString(Constants.KEY_MESSAGE_ARG, message)
+            }
         }
       }
     }
   }
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val binding = LayoutProgressDialogBinding.inflate(layoutInflater)
+    val binding = FragmentProgressDialogBinding.inflate(layoutInflater)
+
+    val orientation = arguments?.getInt(Constants.KEY_ORIENTATION_ARG)
+    val style = arguments?.getInt(Constants.KEY_STYLE_ARG)
+    val cancelable = arguments?.getBoolean(Constants.KEY_CANCELABLE_ARG) ?: true
     val message = arguments?.getString(Constants.KEY_MESSAGE_ARG)
+
     if (message != null) {
-      binding.message.text = message
+      binding.messageSide.text = message
+      binding.messageBelow.text = message
+
+      binding.messageSide.isVisible = orientation == ORIENTATION_HORIZONTAL
+      binding.messageBelow.isVisible = orientation == ORIENTATION_VERTICAL
     }
 
-    return AlertDialog.Builder(requireContext())
-      .setView(binding.root)
-      .create()
-      .apply { window?.setBackgroundDrawable(GradientDrawable()) }
+    val builder =
+      MaterialAlertDialogBuilder(requireContext()).apply {
+        setCancelable(cancelable)
+        setView(binding.root)
+      }
+
+    val dialog = builder.create()
+    if (style == STYLE_NO_BACKGROUND) {
+      dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    return dialog
   }
 }

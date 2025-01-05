@@ -15,7 +15,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/drag_handle"
     android:clipToPadding="false"
-    android:paddingHorizontal="20dp"
-    android:paddingBottom="20dp" />
+    android:paddingHorizontal="@dimen/sheet_dialog_padding"
+    android:paddingBottom="@dimen/sheet_dialog_padding" />
 
 </RelativeLayout>

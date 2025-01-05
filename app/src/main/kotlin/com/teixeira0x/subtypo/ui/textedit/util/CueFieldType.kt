@@ -13,16 +13,10 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.common
+package com.teixeira0x.subtypo.ui.textedit.util
 
-object Constants {
-  const val KEY_PROJECT_ID_ARG = "key_projectIdArg"
-  const val KEY_SUBTITLE_ID_ARG = "key_subtitleIdArg"
-  const val KEY_CUE_INDEX_ARG = "key_cueIndexArg"
-  const val KEY_VIDEO_POSITION_ARG = "key_videoPositionArg"
-
-  const val KEY_ORIENTATION_ARG = "key_orientationArg"
-  const val KEY_STYLE_ARG = "key_styleArg"
-  const val KEY_CANCELABLE_ARG = "key_styleArg"
-  const val KEY_MESSAGE_ARG = "key_messageArg"
+enum class CueFieldType {
+  START_TIME,
+  END_TIME,
+  TEXT,
 }

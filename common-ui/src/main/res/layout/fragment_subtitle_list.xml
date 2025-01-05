@@ -6,27 +6,27 @@
   android:orientation="vertical">
 
   <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/app_bar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/shape_toolbar"
-      app:elevation="1dp">
-
-  <com.google.android.material.appbar.MaterialToolbar
-    android:id="@+id/toolbar"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:background="@drawable/shape_toolbar"
+    app:elevation="1dp">
 
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
       android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
-      android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-      android:maxLines="1"
-      android:text="@string/subtitle_list" />
+      android:layout_width="match_parent">
 
-  </com.google.android.material.appbar.MaterialToolbar>
+      <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:maxLines="1"
+        android:text="@string/subtitle_list" />
 
-</com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+  </com.google.android.material.appbar.AppBarLayout>
 
   <RelativeLayout
     android:id="@+id/subtitle_list_container"

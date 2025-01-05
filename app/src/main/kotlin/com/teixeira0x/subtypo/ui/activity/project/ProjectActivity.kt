@@ -36,7 +36,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teixeira0x.subtypo.core.storage.FileManager
 import com.teixeira0x.subtypo.ui.activity.project.adapter.CueListAdapter
 import com.teixeira0x.subtypo.ui.activity.project.fragment.SubtitleListFragment
-import com.teixeira0x.subtypo.ui.activity.project.fragment.sheet.CueEditorSheetFragment
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.ProjectViewModel
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.ProjectViewModel.ProjectState
 import com.teixeira0x.subtypo.ui.activity.project.viewmodel.SubtitleViewModel
@@ -47,6 +46,7 @@ import com.teixeira0x.subtypo.ui.common.activity.BaseEdgeToEdgeActivity
 import com.teixeira0x.subtypo.ui.common.databinding.ActivityProjectBinding
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.common.util.showToastShort
+import com.teixeira0x.subtypo.ui.textedit.fragment.CueEditSheetFragment
 import com.teixeira0x.subtypo.ui.videoplayer.mvi.VideoPlayerViewEvent
 import com.teixeira0x.subtypo.ui.videoplayer.viewmodel.VideoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +71,7 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
     CueListAdapter { index, _ ->
       val subtitleId = subtitleViewModel.selectedSubtitleId
       if (subtitleId > 0) {
-        CueEditorSheetFragment.newInstance(
+        CueEditSheetFragment.newInstance(
             subtitleId = subtitleId,
             cueIndex = index,
           )
@@ -207,7 +207,7 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
       val subtitleId = subtitleViewModel.selectedSubtitleId
       if (subtitleId > 0) {
         videoPlayerViewModel.doEvent(VideoPlayerViewEvent.Pause)
-        CueEditorSheetFragment.newInstance(
+        CueEditSheetFragment.newInstance(
             videoPosition = videoPlayerViewModel.videoPosition,
             subtitleId = subtitleId,
           )
@@ -226,7 +226,7 @@ class ProjectActivity : BaseEdgeToEdgeActivity() {
     projectViewModel.stateData.observe(this) { state ->
       when (state) {
         is ProjectState.Loading ->
-          showProgressDialog(getString(R.string.proj_initializing))
+          showProgressDialog(message = getString(R.string.proj_initializing))
         is ProjectState.Loaded -> {
           onProjectLoaded(state)
           dismissProgressDialog()

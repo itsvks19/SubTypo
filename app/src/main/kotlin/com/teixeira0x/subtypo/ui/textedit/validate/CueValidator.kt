@@ -19,9 +19,13 @@ import android.content.Context
 import com.teixeira0x.subtypo.core.subtitle.util.TimeUtils
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.validate.ValidationResult
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 /** @author Felipe Teixeira */
-class CueValidator(private val context: Context) {
+class CueValidator
+@Inject
+constructor(@ApplicationContext private val context: Context) {
 
   fun checkTime(formattedTime: String): ValidationResult {
     return if (TimeUtils.isValidTime(formattedTime)) {

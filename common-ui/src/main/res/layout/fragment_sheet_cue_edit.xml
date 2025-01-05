@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -10,24 +9,23 @@
     android:id="@+id/top_options"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dialog_padding">
+    android:padding="@dimen/sheet_dialog_padding">
 
     <TextView
       android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
-      android:layout_toLeftOf="@id/delete_cue"
-      android:textSize="14sp" />
+      android:layout_toLeftOf="@id/remove_cue"
+      android:textAppearance="?attr/textAppearanceTitleLarge" />
 
     <ImageView
-      android:id="@+id/delete_cue"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_delete"
+      android:id="@+id/remove_cue"
       android:layout_centerVertical="true"
       android:layout_alignParentEnd="true"
-      style="@style/ControllerImageStyle" />
+      android:contentDescription="@string/description_remove_cue"
+      android:src="@drawable/ic_delete"
+      style="@style/ToolbarImageStyle" />
 
   </RelativeLayout>
 
@@ -37,37 +35,54 @@
     android:layout_height="@dimen/divider_size"
     android:background="?attr/colorOutlineVariant" />
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none"
-    android:orientation="vertical"
-    android:layout_weight="1.0">
+    android:layout_height="0dp"
+    android:layout_weight="1">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:paddingHorizontal="@dimen/dialog_padding"
-      android:paddingTop="@dimen/dialog_padding">
+      android:paddingHorizontal="@dimen/sheet_dialog_padding"
+      android:paddingTop="@dimen/sheet_dialog_padding">
+
+      <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:requiresFadingEdge="horizontal"
+        android:fadingEdgeLength="15dp"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+          android:id="@+id/chip_group_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:chipSpacingHorizontal="@dimen/chip_group_time_spacing"
+          app:singleLine="true"
+          app:singleSelection="false" />
+      </HorizontalScrollView>
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_small">
+        android:layout_marginVertical="@dimen/margin_small"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/til_start_time"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           android:hint="@string/subtitle_cue_enter_start_time"
-          android:layout_weight="1.0"
           style="@style/Widget.SubTypo.TextInputLayout">
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tie_start_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
             android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -76,15 +91,16 @@
           android:id="@+id/til_end_time"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/margin_small"
+          android:layout_marginStart="@dimen/margin_medium"
+          android:layout_weight="1"
           android:hint="@string/subtitle_cue_enter_end_time"
-          android:layout_weight="1.0"
           style="@style/Widget.SubTypo.TextInputLayout">
 
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tie_end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
             android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -104,19 +120,19 @@
           android:id="@+id/tie_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:maxLines="3" />
+          android:imeOptions="normal"
+          android:maxLines="2" />
 
       </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
-
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/dialog_padding"
-    android:paddingHorizontal="@dimen/dialog_padding">
+    android:paddingBottom="@dimen/sheet_dialog_padding"
+    android:paddingHorizontal="@dimen/sheet_dialog_padding">
 
     <include
       android:id="@+id/dialog_buttons"

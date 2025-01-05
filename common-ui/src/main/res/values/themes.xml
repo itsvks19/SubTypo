@@ -74,12 +74,4 @@
     <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
     <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
   </style>
-
-  <style name="ControllerImageStyle">
-    <item name="android:layout_width">35dp</item>
-    <item name="android:layout_height">35dp</item>
-    <item name="android:padding">5dp</item>
-    <item name="android:scaleType">fitCenter</item>
-    <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-  </style>
 </resources>
