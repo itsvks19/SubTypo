@@ -121,6 +121,7 @@ dependencies {
   implementation(libs.util.utilcode)
   implementation(libs.util.aboutlibraries)
   implementation(libs.util.aboutlibraries.core)
+  implementation(libs.util.glide)
   implementation(libs.util.slf4j.api)
   implementation(libs.util.logback.android)
   debugImplementation(libs.util.leakcanary)

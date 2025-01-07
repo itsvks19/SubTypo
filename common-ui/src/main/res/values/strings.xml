@@ -65,6 +65,10 @@
   <string name="pref_about_libraries">Libraries</string>
   <string name="pref_about_libraries_summary">Libraries used in the application.</string>
 
+  <string name="video_picker_title">Select a video</string>
+  <string name="video_picker_album_all">All</string>
+  <string name="video_picker_error_no_videos">No videos found</string>
+
   <string name="video_player_show">Show Video Player</string>
   <string name="video_player_hide">Hide Video Player</string>
   <string name="video_player_error_generic">Playback failed</string>

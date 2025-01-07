@@ -13,9 +13,6 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.core.domain.model
+package com.teixeira0x.subtypo.ui.projectedit.model
 
-data class Project(val id: Long = 0, val name: String, val videoUri: String) {
-  val videoName: String
-    get() = videoUri.substringAfterLast("/")
-}
+data class SelectedVideo(val title: String, val path: String)

@@ -15,12 +15,13 @@
 
 package com.teixeira0x.subtypo.ui.projectedit.mvi
 
-import java.io.File
+import com.teixeira0x.subtypo.ui.projectedit.model.SelectedVideo
 
-sealed class ProjectEditorViewEvent {
-  data class UpdateVideo(val videoFile: File?) : ProjectEditorViewEvent()
+sealed class ProjectEditViewEvent {
+  data class UpdateSelectedVideo(val video: SelectedVideo?) :
+    ProjectEditViewEvent()
 
-  data class NavigateToProject(val projectId: Long) : ProjectEditorViewEvent()
+  data class NavigateToProject(val projectId: Long) : ProjectEditViewEvent()
 
-  data object Dismiss : ProjectEditorViewEvent()
+  data object Dismiss : ProjectEditViewEvent()
 }

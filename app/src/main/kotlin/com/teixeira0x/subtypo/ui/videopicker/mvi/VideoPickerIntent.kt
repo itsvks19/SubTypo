@@ -13,12 +13,11 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projectedit.mvi
+package com.teixeira0x.subtypo.ui.videopicker.mvi
 
-import com.teixeira0x.subtypo.core.domain.model.Project
+sealed class VideoPickerIntent {
 
-sealed class ProjectEditorViewState {
-  data object Loading : ProjectEditorViewState()
+  data object Load : VideoPickerIntent()
 
-  data class Loaded(val project: Project?) : ProjectEditorViewState()
+  data class LoadVideos(val albumId: String?) : VideoPickerIntent()
 }

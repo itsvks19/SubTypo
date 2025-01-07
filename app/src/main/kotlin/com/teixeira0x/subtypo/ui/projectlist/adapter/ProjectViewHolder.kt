@@ -2,10 +2,10 @@ package com.teixeira0x.subtypo.ui.projectlist.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.databinding.LayoutProjectItemBinding
-import com.teixeira0x.subtypo.ui.common.util.VideoUtils.getVideoThumbnail
 
 class ProjectViewHolder(
   private val listener: ProjectClickListener,
@@ -19,10 +19,9 @@ class ProjectViewHolder(
         tvName.text = name
 
         if (videoUri.isNotEmpty()) {
+          Glide.with(root.context).load(videoUri).into(imgVideoThumbnail)
+
           imgVideoThumbnail.isVisible = true
-          imgVideoThumbnail.setImageBitmap(
-            root.context.getVideoThumbnail(videoUri)
-          )
           tvVideoName.text = videoName
         } else {
           imgVideoThumbnail.isVisible = false

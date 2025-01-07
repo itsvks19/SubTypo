@@ -13,18 +13,14 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.ui.projectedit.mvi
+package com.teixeira0x.subtypo.ui.videopicker.mvi
 
-import android.net.Uri
+import com.teixeira0x.subtypo.core.domain.model.Video
 
-sealed class ProjectEditorIntent {
-  data class Load(val id: Long) : ProjectEditorIntent()
+sealed class VideoPickerViewEvent {
+  data class UpdateVideoList(val videos: List<Video>) : VideoPickerViewEvent()
 
-  data class UpdateVideoUri(val uri: Uri?) : ProjectEditorIntent()
+  object ShowLoading : VideoPickerViewEvent()
 
-  data class Create(val name: String, val videoUri: String) :
-    ProjectEditorIntent()
-
-  data class Update(val id: Long, val name: String, val videoUri: String) :
-    ProjectEditorIntent()
+  object HideLoading : VideoPickerViewEvent()
 }

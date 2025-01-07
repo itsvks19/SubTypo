@@ -13,9 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.core.domain.model
+package com.teixeira0x.subtypo.ui.projectedit.mvi
 
-data class Project(val id: Long = 0, val name: String, val videoUri: String) {
-  val videoName: String
-    get() = videoUri.substringAfterLast("/")
+import com.teixeira0x.subtypo.core.domain.model.Project
+
+sealed class ProjectEditViewState {
+  data object Loading : ProjectEditViewState()
+
+  data class Loaded(val project: Project?) : ProjectEditViewState()
 }

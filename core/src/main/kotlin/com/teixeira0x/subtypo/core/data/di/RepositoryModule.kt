@@ -15,10 +15,12 @@
 
 package com.teixeira0x.subtypo.core.data.di
 
+import com.teixeira0x.subtypo.core.data.repository.VideoRepositoryImpl
 import com.teixeira0x.subtypo.core.data.repository.project.ProjectRepositoryImpl
 import com.teixeira0x.subtypo.core.data.repository.subtitle.SubtitleRepositoryImpl
 import com.teixeira0x.subtypo.core.domain.repository.project.ProjectRepository
 import com.teixeira0x.subtypo.core.domain.repository.subtitle.SubtitleRepository
+import com.teixeira0x.subtypo.core.domain.repository.video.VideoRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -40,4 +42,10 @@ abstract class RepositoryModule {
   abstract fun bindsSubtitleRepository(
     repository: SubtitleRepositoryImpl
   ): SubtitleRepository
+
+  @Binds
+  @Singleton
+  abstract fun bindsVideoRepository(
+    repository: VideoRepositoryImpl
+  ): VideoRepository
 }

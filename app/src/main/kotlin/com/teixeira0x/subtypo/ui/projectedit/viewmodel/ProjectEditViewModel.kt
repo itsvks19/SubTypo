@@ -15,10 +15,8 @@
 
 package com.teixeira0x.subtypo.ui.projectedit.viewmodel
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blankj.utilcode.util.UriUtils
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.core.domain.usecase.project.GetProjectUseCase
 import com.teixeira0x.subtypo.core.domain.usecase.project.InsertProjectUseCase
@@ -27,9 +25,10 @@ import com.teixeira0x.subtypo.core.domain.usecase.subtitle.InsertSubtitleUseCase
 import com.teixeira0x.subtypo.core.subtitle.model.Subtitle
 import com.teixeira0x.subtypo.ui.common.R
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState
+import com.teixeira0x.subtypo.ui.projectedit.model.SelectedVideo
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditIntent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditViewEvent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -37,7 +36,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class ProjectEditorViewModel
+class ProjectEditViewModel
 @Inject
 constructor(
   private val getProjectUseCase: GetProjectUseCase,
@@ -47,50 +46,51 @@ constructor(
 ) : ViewModel() {
 
   private val _projectEditorState =
-    MutableStateFlow<ProjectEditorViewState>(ProjectEditorViewState.Loading)
-  val projectEditorState: StateFlow<ProjectEditorViewState> =
+    MutableStateFlow<ProjectEditViewState>(ProjectEditViewState.Loading)
+  val projectEditorState: StateFlow<ProjectEditViewState> =
     _projectEditorState.asStateFlow()
 
   private val _viewEvent = Channel<ViewEvent>(Channel.BUFFERED)
   val viewEvent: Flow<ViewEvent> = _viewEvent.receiveAsFlow()
 
-  private val _customViewEvent = MutableSharedFlow<ProjectEditorViewEvent>()
-  val customViewEvent: SharedFlow<ProjectEditorViewEvent> =
+  private val _customViewEvent = MutableSharedFlow<ProjectEditViewEvent>()
+  val customViewEvent: SharedFlow<ProjectEditViewEvent> =
     _customViewEvent.asSharedFlow()
 
-  var videoUri: Uri? = null
+  var selectedVideo: SelectedVideo? = null
+    private set
 
-  fun doIntent(event: ProjectEditorIntent) {
-    when (event) {
-      is ProjectEditorIntent.Load -> loadProject(event)
-      is ProjectEditorIntent.UpdateVideoUri -> updateVideoUri(event)
-      is ProjectEditorIntent.Create -> insertProject(event)
-      is ProjectEditorIntent.Update -> updateProject(event)
+  fun doIntent(intent: ProjectEditIntent) {
+    when (intent) {
+      is ProjectEditIntent.Load -> loadProject(intent)
+      is ProjectEditIntent.SelectVideo -> selectVideo(intent)
+      is ProjectEditIntent.Create -> insertProject(intent)
+      is ProjectEditIntent.Update -> updateProject(intent)
     }
   }
 
-  private fun loadProject(event: ProjectEditorIntent.Load) {
-    _projectEditorState.value = ProjectEditorViewState.Loading
+  private fun loadProject(intent: ProjectEditIntent.Load) {
+    _projectEditorState.value = ProjectEditViewState.Loading
     viewModelScope.launch {
-      val project = getProjectUseCase(event.id).firstOrNull()
+      val project = getProjectUseCase(intent.id).firstOrNull()
 
-      _projectEditorState.value = ProjectEditorViewState.Loaded(project)
+      _projectEditorState.value = ProjectEditViewState.Loaded(project)
     }
   }
 
-  private fun updateVideoUri(event: ProjectEditorIntent.UpdateVideoUri) {
+  private fun selectVideo(intent: ProjectEditIntent.SelectVideo) {
     viewModelScope.launch {
-      videoUri = event.uri
+      selectedVideo = intent.video
       _customViewEvent.emit(
-        ProjectEditorViewEvent.UpdateVideo(UriUtils.uri2File(event.uri))
+        ProjectEditViewEvent.UpdateSelectedVideo(intent.video)
       )
     }
   }
 
-  private fun insertProject(event: ProjectEditorIntent.Create) {
+  private fun insertProject(intent: ProjectEditIntent.Create) {
     viewModelScope.launch {
-      val name = event.name
-      val videoUri = event.videoUri
+      val name = intent.name
+      val videoUri = intent.videoUri
 
       if (name.isEmpty() || name.isBlank()) {
         _viewEvent.send(
@@ -107,9 +107,7 @@ constructor(
           Subtitle(projectId = projectId, name = "subtitle", cues = emptyList())
         )
 
-        _customViewEvent.emit(
-          ProjectEditorViewEvent.NavigateToProject(projectId)
-        )
+        _customViewEvent.emit(ProjectEditViewEvent.NavigateToProject(projectId))
       }
 
       _viewEvent.send(
@@ -124,11 +122,11 @@ constructor(
     }
   }
 
-  private fun updateProject(event: ProjectEditorIntent.Update) {
+  private fun updateProject(intent: ProjectEditIntent.Update) {
     viewModelScope.launch {
-      val id = event.id
-      val name = event.name
-      val videoUri = event.videoUri
+      val id = intent.id
+      val name = intent.name
+      val videoUri = intent.videoUri
 
       if (name.isEmpty() || name.isBlank()) {
         _viewEvent.send(
@@ -140,7 +138,7 @@ constructor(
       val updated =
         updateProjectUseCase(Project(id = id, name = name, videoUri = videoUri))
       if (updated > 0) {
-        _customViewEvent.emit(ProjectEditorViewEvent.Dismiss)
+        _customViewEvent.emit(ProjectEditViewEvent.Dismiss)
       }
 
       _viewEvent.send(

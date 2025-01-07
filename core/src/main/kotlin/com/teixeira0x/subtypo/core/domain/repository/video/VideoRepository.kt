@@ -13,9 +13,15 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.core.domain.model
+package com.teixeira0x.subtypo.core.domain.repository.video
 
-data class Project(val id: Long = 0, val name: String, val videoUri: String) {
-  val videoName: String
-    get() = videoUri.substringAfterLast("/")
+import com.teixeira0x.subtypo.core.domain.model.Album
+import com.teixeira0x.subtypo.core.domain.model.Video
+import kotlinx.coroutines.flow.Flow
+
+interface VideoRepository {
+
+  fun getVideos(albumId: String?): Flow<List<Video>>
+
+  fun getAlbums(): Flow<List<Album>>
 }

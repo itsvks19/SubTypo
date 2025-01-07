@@ -19,28 +19,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.TooltipCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.UriUtils
+import com.bumptech.glide.Glide
 import com.teixeira0x.subtypo.core.domain.model.Project
 import com.teixeira0x.subtypo.ui.activity.Navigator.navigateToProjectActivity
 import com.teixeira0x.subtypo.ui.common.Constants
 import com.teixeira0x.subtypo.ui.common.R
-import com.teixeira0x.subtypo.ui.common.databinding.FragmentProjectEditorBinding
+import com.teixeira0x.subtypo.ui.common.databinding.FragmentSheetProjectEditBinding
 import com.teixeira0x.subtypo.ui.common.fragment.BaseBottomSheetFragment
 import com.teixeira0x.subtypo.ui.common.mvi.ViewEvent
 import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract
 import com.teixeira0x.subtypo.ui.common.permission.PermissionResultContract.Companion.isPermissionsGranted
-import com.teixeira0x.subtypo.ui.common.util.VideoUtils.getVideoThumbnail
 import com.teixeira0x.subtypo.ui.common.util.showToastShort
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorIntent
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewEvent
-import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditorViewState
-import com.teixeira0x.subtypo.ui.projectedit.viewmodel.ProjectEditorViewModel
+import com.teixeira0x.subtypo.ui.projectedit.model.SelectedVideo
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditIntent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditViewEvent
+import com.teixeira0x.subtypo.ui.projectedit.mvi.ProjectEditViewState
+import com.teixeira0x.subtypo.ui.projectedit.viewmodel.ProjectEditViewModel
+import com.teixeira0x.subtypo.ui.videopicker.fragment.VideoPickerSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import kotlinx.coroutines.flow.launchIn
@@ -60,17 +59,12 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
     }
   }
 
-  private var _binding: FragmentProjectEditorBinding? = null
-  private val binding: FragmentProjectEditorBinding
+  private var _binding: FragmentSheetProjectEditBinding? = null
+  private val binding: FragmentSheetProjectEditBinding
     get() =
       checkNotNull(_binding) { "ProjectEditSheetFragment has been destroyed!" }
 
-  private val viewModel by viewModels<ProjectEditorViewModel>()
-
-  private val videoPickerLauncher =
-    registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-      uri?.also { viewModel.doIntent(ProjectEditorIntent.UpdateVideoUri(uri)) }
-    }
+  private val viewModel by viewModels<ProjectEditViewModel>()
 
   private lateinit var permissionContract: PermissionResultContract
   private var projectId: Long = 0
@@ -88,7 +82,7 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?,
   ): View {
-    return FragmentProjectEditorBinding.inflate(inflater)
+    return FragmentSheetProjectEditBinding.inflate(inflater)
       .also { _binding = it }
       .root
   }
@@ -108,18 +102,25 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
         return@setOnClickListener
       }
 
-      videoPickerLauncher.launch(arrayOf("video/*"))
+      VideoPickerSheetFragment.newSingleChoice { video ->
+          viewModel.doIntent(
+            ProjectEditIntent.SelectVideo(
+              SelectedVideo(title = video.title, path = video.path)
+            )
+          )
+        }
+        .show(childFragmentManager, "VideoPickerSheetFragment")
     }
 
     binding.imgRemoveVideo.setOnClickListener {
-      if (viewModel.videoUri != null) {
-        viewModel.doIntent(ProjectEditorIntent.UpdateVideoUri(null))
+      if (viewModel.selectedVideo != null) {
+        viewModel.doIntent(ProjectEditIntent.SelectVideo(null))
       }
     }
 
     binding.dialogButtons.cancel.setOnClickListener { dismiss() }
     binding.dialogButtons.save.setOnClickListener { createProject() }
-    viewModel.doIntent(ProjectEditorIntent.Load(projectId))
+    viewModel.doIntent(ProjectEditIntent.Load(projectId))
   }
 
   override fun onDestroyView() {
@@ -131,10 +132,10 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
     viewModel.projectEditorState
       .flowWithLifecycle(viewLifecycleOwner.lifecycle)
       .onEach { state ->
-        onLoadingChange(state is ProjectEditorViewState.Loading)
+        onLoadingChange(state is ProjectEditViewState.Loading)
         when (state) {
-          is ProjectEditorViewState.Loading -> Unit
-          is ProjectEditorViewState.Loaded -> onLoaded(state.project)
+          is ProjectEditViewState.Loading -> Unit
+          is ProjectEditViewState.Loaded -> onLoaded(state.project)
         }
       }
       .launchIn(viewLifecycleOwner.lifecycleScope)
@@ -152,18 +153,19 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
       .flowWithLifecycle(viewLifecycleOwner.lifecycle)
       .onEach { event ->
         when (event) {
-          is ProjectEditorViewEvent.UpdateVideo -> {
-            val file = event.videoFile
+          is ProjectEditViewEvent.UpdateSelectedVideo -> {
+            val video = event.video
 
-            binding.imgVideoThumbnail.setImageBitmap(
-              requireContext().getVideoThumbnail(file?.absolutePath ?: "")
-            )
-            binding.tvVideoName.setText(
-              file?.name ?: getString(R.string.proj_editor_video_no_select)
+            Glide.with(requireContext())
+              .load(video?.path ?: "")
+              .into(binding.imgVideoThumbnail)
+
+            binding.tvVideoTitle.setText(
+              video?.title ?: getString(R.string.proj_editor_video_no_select)
             )
           }
-          is ProjectEditorViewEvent.Dismiss -> dismiss()
-          is ProjectEditorViewEvent.NavigateToProject -> {
+          is ProjectEditViewEvent.Dismiss -> dismiss()
+          is ProjectEditViewEvent.NavigateToProject -> {
             navigateToProjectActivity(requireContext(), event.projectId)
             dismiss()
           }
@@ -179,26 +181,32 @@ class ProjectEditSheetFragment : BaseBottomSheetFragment() {
       } else {
         tvTitle.setText(R.string.proj_editor_edit)
         tieName.setText(project.name)
-        viewModel.doIntent(
-          ProjectEditorIntent.UpdateVideoUri(File(project.videoUri).toUri())
-        )
+
+        if (project.videoUri.isNotEmpty()) {
+          val file = File(project.videoUri)
+          viewModel.doIntent(
+            ProjectEditIntent.SelectVideo(
+              SelectedVideo(title = file.name, path = file.absolutePath)
+            )
+          )
+        }
       }
     }
   }
 
   private fun createProject() {
     val name = binding.tieName.text.toString().trim()
-    val videoUri = UriUtils.uri2File(viewModel.videoUri)?.absolutePath ?: ""
+    val videoUri = viewModel.selectedVideo?.path ?: ""
 
     viewModel.doIntent(
       if (projectId > 0) {
-        ProjectEditorIntent.Update(
+        ProjectEditIntent.Update(
           id = projectId,
           name = name,
           videoUri = videoUri,
         )
       } else {
-        ProjectEditorIntent.Create(name = name, videoUri = videoUri)
+        ProjectEditIntent.Create(name = name, videoUri = videoUri)
       }
     )
   }

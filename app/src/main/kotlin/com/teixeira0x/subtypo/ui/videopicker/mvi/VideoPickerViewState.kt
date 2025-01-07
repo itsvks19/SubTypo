@@ -13,9 +13,16 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.teixeira0x.subtypo.core.domain.model
+package com.teixeira0x.subtypo.ui.videopicker.mvi
 
-data class Project(val id: Long = 0, val name: String, val videoUri: String) {
-  val videoName: String
-    get() = videoUri.substringAfterLast("/")
+import com.teixeira0x.subtypo.core.domain.model.Album
+import com.teixeira0x.subtypo.core.domain.model.Video
+
+sealed class VideoPickerViewState {
+  data object Loading : VideoPickerViewState()
+
+  data class Loaded(val albums: List<Album>, val videos: List<Video>) :
+    VideoPickerViewState()
+
+  data class Error(val message: Int) : VideoPickerViewState()
 }

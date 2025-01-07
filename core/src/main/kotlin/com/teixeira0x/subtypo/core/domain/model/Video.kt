@@ -15,7 +15,14 @@
 
 package com.teixeira0x.subtypo.core.domain.model
 
-data class Project(val id: Long = 0, val name: String, val videoUri: String) {
-  val videoName: String
-    get() = videoUri.substringAfterLast("/")
-}
+import android.net.Uri
+
+data class Video(
+  val id: String,
+  val title: String,
+  val duration: Long = 0,
+  val albumName: String,
+  val size: String,
+  val path: String,
+  val videoUri: Uri,
+)
