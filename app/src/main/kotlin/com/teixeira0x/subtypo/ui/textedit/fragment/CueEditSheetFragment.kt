@@ -277,7 +277,7 @@ class CueEditSheetFragment : BaseBottomSheetFragment() {
 
     chipTimes.forEach { time ->
       val chipDecrease =
-        createTimeChip(requireContext(), "-${time}s") {
+        createTimeChip(requireContext(), "-${time}") {
           onTimeChipClick(false, time.toLong())
         }
       binding.chipGroupTime.addView(chipDecrease)
@@ -285,7 +285,7 @@ class CueEditSheetFragment : BaseBottomSheetFragment() {
     chipTimes.reverse()
     chipTimes.forEach { time ->
       val chipIncrease =
-        createTimeChip(requireContext(), "+${time}s") {
+        createTimeChip(requireContext(), "+${time}") {
           onTimeChipClick(true, time.toLong())
         }
       binding.chipGroupTime.addView(chipIncrease)
